@@ -1,30 +1,47 @@
+import { motion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
 import melissaLogo from "../assets/melissa_logo.png";
 import img1 from "../assets/melissa_img.png";
 import img2 from "../assets/melissa_img2.png";
 import img3 from "../assets/melissa_img3.png";
 
 export default function FourthSection() {
+  const containerRef = useRef(null);
+  // const { scrollYProgress } = useScroll({
+  //   target: containerRef,
+  //   offset: ["start end", "end start"],
+  // });
+
+  // Parallax effect: Background moves slower than content
+  // const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
   return (
-    <section className="grid grid-cols-1 w-full z-30">
-      {/* Sticky Background */}
-      <div className="sticky top-0 h-screen col-start-1 row-start-1 self-start bg-[url('../assets/melissa_bg.png')] bg-cover bg-center z-10 overflow-hidden">
-        <div className="pt-[90px] pl-[80px]">
-          <img
-            className="w-[164px] h-[60px] mb-8"
-            src={melissaLogo}
-            alt="Melissa Logo"
-          />
-          <p className="text-[#202020] text-[20px] font-alumni font-extrabold leading-[120%]">
-            Playful and fluid, Melissa embraces creativity with every step.
-            <br />
-            Sustainable at heart, it transforms flexibility into timeless style.
-          </p>
+    <section ref={containerRef} className="relative w-full">
+      {/* Sticky Background Container */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden z-10">
+        <motion.div className="absolute top-[-10%] left-0 w-full h-[120%] bg-[url('../assets/melissa_bg.png')] bg-cover bg-center" />
+
+        {/* Sticky Content (Logo + Intro Text) */}
+        <div className="absolute top-0 left-0 w-full h-full z-10">
+          <div className="pt-[90px] pl-[80px]">
+            <img
+              className="w-[164px] h-[60px] mb-8"
+              src={melissaLogo}
+              alt="Melissa Logo"
+            />
+            <p className="text-[#202020] text-[20px] font-alumni font-extrabold leading-[120%]">
+              Playful and fluid, Melissa embraces creativity with every step.
+              <br />
+              Sustainable at heart, it transforms flexibility into timeless
+              style.
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Scroll Content */}
-      <div className="w-full z-20 pointer-events-none pb-[130px]">
-        {/* Boldness Section */}
+      <div className="relative z-20 mt-[-100vh] pb-[130px] pointer-events-none">
+        {/* Flexible Section */}
         <div className="max-w-[1920px] mx-auto px-[80px] pt-[260px] pointer-events-auto ">
           <span className="block h-[363px] w-[439px] ml-auto mr-[445px]">
             <img
