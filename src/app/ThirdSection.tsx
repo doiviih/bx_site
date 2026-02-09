@@ -1,29 +1,50 @@
+import { motion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
 import dieselLogo from "../assets/diesel_logo.png";
 import img1 from "../assets/diesel_img.png";
 import img2 from "../assets/diesel_img2.png";
 
 export default function ThirdSection() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Brightness effect: Logo darkens as user scrolls down
+  const brightness = useTransform(scrollYProgress, [0, 1], [1, 0.4]); // 100% to 20% brightness
+
   return (
-    <section className="grid grid-cols-1 w-full z-30">
-      {/* Sticky Background */}
-      <div className="sticky top-0 h-screen col-start-1 row-start-1 self-start bg-[url('../assets/diesel_bg.png')] bg-cover bg-center z-10 overflow-hidden">
-        <div className="pt-[90px] pl-[80px]">
-          <img
-            className="w-[164px] h-[60px] mb-8"
-            src={dieselLogo}
-            alt="Diesel Logo"
-          />
-          <p className="text-white text-[20px] font-alumni font-extrabold leading-[120%]">
-            Fearless and bold, Diesel breaks conventions with unapologetic
-            energy.
-            <br />
-            Its rebellious edge turns raw attitude into iconic design.
-          </p>
+    <section ref={containerRef} className="relative w-full">
+      {/* Sticky Background Container */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden z-10 bg-black">
+        <motion.div
+          style={{
+            filter: useTransform(brightness, (value) => `brightness(${value})`),
+          }}
+          className="absolute top-[-10%] left-0 w-full h-[120%] bg-[url('../assets/diesel_bg.png')] bg-cover bg-center"
+        />
+
+        {/* Sticky Content (Logo + Intro Text) */}
+        <div className="absolute top-0 left-0 w-full h-full z-10">
+          <div className="pt-[90px] pl-[80px]">
+            <motion.img
+              className="w-[164px] h-[60px] mb-8"
+              src={dieselLogo}
+              alt="Diesel Logo"
+            />
+            <p className="text-white text-[20px] font-alumni font-extrabold leading-[120%]">
+              Fearless and bold, Diesel breaks conventions with unapologetic
+              energy.
+              <br />
+              Its rebellious edge turns raw attitude into iconic design.
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Scroll Content */}
-      <div className="w-full z-20 pointer-events-none pb-[152px]">
+      <div className="relative z-20 mt-[-100vh] pb-[152px] pointer-events-none">
         {/* Boldness Section */}
         <div className="max-w-[1920px] mx-auto px-[80px] pt-[100vh] pointer-events-auto ">
           <div className="flex gap-[62px] w-full justify-end pr-[297px]">
