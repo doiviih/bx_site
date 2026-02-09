@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import { motion } from "motion/react";
 import melissaLogo from "../assets/melissa_logo.png";
 import img1 from "../assets/melissa_img.png";
 import img2 from "../assets/melissa_img2.png";

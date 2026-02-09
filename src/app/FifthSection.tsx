@@ -13,169 +13,107 @@ export default function FifthSection() {
     offset: ["start start", "end end"],
   });
 
-  // --- Phase 1: Intro & Explosion (0 - 0.5) ---
-
-  // Background 1 (Intro Swirl)
-  // Visible 0-0.4, zooms and fades
-  const introBgScale = useTransform(scrollYProgress, [0, 0.2], [1, 1.2]);
-  const introBgOpacity = useTransform(scrollYProgress, [0.2, 0.3], [1, 0]);
-
   // "CREATION" Text Animation
   // Letters: C R E A T I O N
   // Sorted by X: C(pbdb1ef0), R(p3efc5c80), E(p268d5570), A(pd236400), T(p2e9d9600), I(p12d4ba00), O(p13e46300), N(p1ec72300)
 
   // Individual Letter Transforms (Split effect at 0.3)
-  const xC = useTransform(scrollYProgress, [0.25, 0.35], [0, -1000]);
-  const xR = useTransform(scrollYProgress, [0.25, 0.35], [0, -1000]);
-  const xE = useTransform(scrollYProgress, [0.25, 0.35], [0, -1000]);
-  const xA = useTransform(scrollYProgress, [0.25, 0.35], [0, -1000]);
-  const xT = useTransform(scrollYProgress, [0.25, 0.35], [0, 1000]);
-  const xI = useTransform(scrollYProgress, [0.25, 0.35], [0, 1000]);
-  const xO = useTransform(scrollYProgress, [0.25, 0.35], [0, 1000]);
-  const xN = useTransform(scrollYProgress, [0.25, 0.35], [0, 1000]);
+  const xC = useTransform(scrollYProgress, [0.1, 0.8], [0, -1000]);
+  const xR = useTransform(scrollYProgress, [0.1, 0.8], [0, -1000]);
+  const xE = useTransform(scrollYProgress, [0.1, 0.8], [0, -1000]);
+  const xA = useTransform(scrollYProgress, [0.1, 0.8], [0, -1000]);
+  const xT = useTransform(scrollYProgress, [0.1, 0.8], [0, 1000]);
+  const xI = useTransform(scrollYProgress, [0.1, 0.8], [0, 1000]);
+  const xO = useTransform(scrollYProgress, [0.1, 0.8], [0, 1000]);
+  const xN = useTransform(scrollYProgress, [0.1, 0.8], [0, 1000]);
 
   // Opacity separate for A/T vs others
-  const lettersOpacity = useTransform(scrollYProgress, [0.3, 0.35], [1, 0]); // C, R, E, A T, I, O, N fade out
+  const lettersOpacity = useTransform(scrollYProgress, [0.15, 0.9], [1, 0]); // C, R, E, A T, I, O, N fade out
 
-  // Products Intro (0 - 0.4)
-  // Initial: Horizontal (Red, Black, Clear) ? Browser agent: "Red, Black, Clear".
-  // Wait, Frame 3 "Explosion".
+  // --- Product Animation (Horizontal to Vertical Clockwise + Scale) ---
+  // Animation active range: 0.2 to 0.8
+  const animationStart = 0.2;
+  const animationEnd = 0.8;
 
-  // Red Product
-  // const redX = useTransform(
-  //   scrollYProgress,
-  //   [0, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
-  //   [-300, -350, -600, 0, 0, 0, -300, 0],
-  // );
-  // Coordinates are roughly relative to center in px.
-  // 0: Center-Left (-300? No, let's use flex gap usually, but absolute makes sense for complex motion).
-  // Explode (0.3): Top-Left.
-  // Stack (0.4): Top.
-  // Hero (0.6): Center Scale Up.
-  // Final (0.8): Center Middle.
+  // Scale (Common)
+  const productScale = useTransform(scrollYProgress, [0.8, 1], [0.8, 1.2]);
 
-  // Let's use % or specific px.
-  // Frame 1: Horizontal. C(Left), B(Center), R(Right).
-  // Red: Left. Black: Center. Clear: Right. (Matches browsing: "Products... arranged horizontally")
-
-  // const redPosition = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.6, 0.8], [
-  //   { x: -350, y: 100, scale: 0.6, rotate: 0 }, // Initial Left
-  //   { x: -600, y: -200, scale: 0.8, rotate: -45 }, // Explode Top-Left
-  //   { x: 0, y: -150, scale: 0.5, rotate: 0 }, // Stack Top
-  //   { x: 0, y: 0, scale: 1.2, rotate: 0 }, // Hero Center
-  //   { x: 0, y: 0, scale: 0.4, rotate: 0 }, // Final Stack Middle
-  // ] as any);
-
-  // Need to decompose because object transform isn't direct in Motion v10 sometimes easily.
-  // Let's use individual transforms for safety.
-
-  // Red (Left -> TopLeft -> TopStack -> Hero -> MiddleStack)
-  const redXVal = useTransform(
+  // Red (Left -> Top) - Clockwise rotation in position
+  const redX = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.4, 0.6, 0.7, 0.8],
-    [-542, -800, 0, 0, 0, 0], // Starts at -542 (Figma)
+    [animationStart, animationEnd],
+    [-600, 0],
   );
-  const redYVal = useTransform(
+  const redY = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.4, 0.6, 0.7, 0.8],
-    [-14, -300, -120, 0, -200, 0], // Starts at -14 (Staggered)
+    [animationStart, animationEnd],
+    [0, -400],
   );
-  const redScaleVal = useTransform(
+  const redRotate = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.4, 0.6, 0.7, 0.8],
-    [0.5, 0.7, 0.4, 1.2, 0.4, 0.4],
-  );
-  const redRotVal = useTransform(
-    scrollYProgress,
-    [0, 0.25, 0.4, 0.6, 0.8],
-    [11.41, -30, 0, 0, 0], // Starts at 11.41 deg
+    [animationStart, animationEnd],
+    [10, -40],
   );
 
-  // Black (Center -> Left -> BottomStack -> TopStack -> TopStack)
-  const blackXVal = useTransform(
+  // Black (Center -> Center)
+  const blackX = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.4, 0.6, 0.8],
-    [0, -200, 0, 0, 0],
+    [animationStart, animationEnd],
+    [0, 0],
   );
-  const blackYVal = useTransform(
+  const blackY = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.4, 0.6, 0.8],
-    [14, 100, 80, -350, -120], // Starts at 14
+    [animationStart, animationEnd],
+    [0, 100],
   );
-  const blackScaleVal = useTransform(
+  const blackRotate = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.4, 0.6, 0.8],
-    [0.6, 0.4, 0.4, 0.4, 0.4],
-  );
-  const blackRotVal = useTransform(
-    scrollYProgress,
-    [0, 0.25, 0.4, 0.6, 0.8],
-    [-16.79, -15, 0, 0, 0], // Starts at -16.79 deg
+    [animationStart, animationEnd],
+    [-20, 45],
   );
 
-  // Clear (Right -> BottomRight -> Out -> Hero -> BottomStack)
-  const clearXVal = useTransform(
+  // Clear (Right -> Bottom) - Clockwise rotation in position
+  const clearX = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.4, 0.6, 0.7, 0.8],
-    [542, 800, 0, 0, 0, 0], // Starts at 542 (Figma)
+    [animationStart, animationEnd],
+    [600, 0],
   );
-  const clearYVal = useTransform(
+  const clearY = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.4, 0.6, 0.7, 0.8],
-    [-6, 400, 300, 400, 0, 120], // Starts at -6
+    [animationStart, animationEnd],
+    [0, 560],
   );
-  const clearScaleVal = useTransform(
+  const clearRotate = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.4, 0.6, 0.7, 0.8],
-    [0.5, 0.7, 0, 0.4, 1.2, 0.4],
-  );
-  const clearRotVal = useTransform(
-    scrollYProgress,
-    [0, 0.25, 0.4, 0.6, 0.8],
-    [18.97, 30, 0, 0, 0], // Starts at 18.97 deg
-  );
-  const clearOpacity = useTransform(
-    scrollYProgress,
-    [0.35, 0.4, 0.55, 0.6],
-    [1, 0, 0, 1],
+    [animationStart, animationEnd],
+    [20, -35],
   );
 
   // --- Phase 2: Seascape (0.5 - 1.0) ---
-  // Frame 6 (0.75) is Sky, Frame 7 (0.90) is Water.
-
-  // Intro BG (introBgScale, introBgOpacity defined above at line 20)
-  // Let's redefine them to match timeline more precisely if needed, or keep as is.
-  // IntroFadeOut: Frame 5 (0.6) -> Frame 6 (0.75) ideally.
-
-  // Transition logic:
-  // 0 - 0.6: Intro BG Visible
-  // 0.6 - 0.75: Fade to Sky? Or straight to Water?
-  // Frames 6 is "Sky", Frame 7 is "Water".
-
-  // Let's assume seaOpacity handles the "Post-Creation" phase.
-  const seaOpacity = useTransform(scrollYProgress, [0.6, 0.7], [0, 1]);
-
-  // Final Text
-  const bioOpacity = useTransform(scrollYProgress, [0.9, 0.95], [0, 1]);
-  const bioY = useTransform(scrollYProgress, [0.9, 0.95], [50, 0]);
+  const seaOpacity = useTransform(scrollYProgress, [0.7, 0.8], [0, 1]);
+  const seaY = useTransform(scrollYProgress, [0.8, 1], ["0%", "-33%"]); // Scroll the background up
+  // Scroll products with background (match 33% of 150vh approx 50vh)
+  const productScrollY = useTransform(
+    scrollYProgress,
+    [0.8, 1],
+    ["0vh", "-35vh"],
+  );
 
   return (
     <div
       ref={containerRef}
       className="relative bg-white"
-      style={{ height: "800vh" }}
+      style={{ height: "400vh" }}
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
-        {/* Intro Background */}
-        <motion.div
-          className="absolute inset-0 z-0 origin-center"
-          style={{ scale: introBgScale, opacity: introBgOpacity }}
-        ></motion.div>
-
         {/* Seascape Background */}
         <motion.div
-          className="absolute inset-0 z-0"
-          style={{ opacity: seaOpacity }}
+          className="absolute inset-x-0 top-0 w-full z-0 origin-top"
+          style={{
+            opacity: seaOpacity,
+            y: seaY,
+            height: "150vh", // Ensure height is enough to scroll
+          }}
         >
           <img
             src={ProductIntroBg}
@@ -188,13 +126,12 @@ export default function FifthSection() {
         {/* --- CREATION TEXT --- */}
         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
           <svg
-            className="w-[80%] h-auto max-w-[1500px]"
+            className="h-auto w-full"
             viewBox="0 0 1920 652"
             fill="none"
             preserveAspectRatio="xMidYMid meet"
           >
             <g id="Letters">
-              {" "}
               {/* Centered alignment assumption */}
               {/* C */}
               <motion.path
@@ -249,60 +186,43 @@ export default function FifthSection() {
         </div>
 
         {/* --- PRODUCTS --- */}
-        <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-          {/* Black Product (Behind Red initially, then specific stacking) */}
-          <motion.img
-            src={blackPd}
-            className="absolute w-[500px] h-auto drop-shadow-2xl origin-center"
-            style={{
-              x: blackXVal,
-              y: blackYVal,
-              scale: blackScaleVal,
-              rotate: blackRotVal,
-            }}
-          />
-          {/* Clear Product */}
-          <motion.img
-            src={clearPd}
-            className="absolute w-[500px] h-auto drop-shadow-2xl origin-center"
-            style={{
-              x: clearXVal,
-              y: clearYVal,
-              scale: clearScaleVal,
-              rotate: clearRotVal,
-              opacity: clearOpacity,
-            }}
-          />
-          {/* Red Product (Usually hero/front) */}
+        <motion.div
+          className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
+          style={{ y: productScrollY }}
+        >
+          {/* Red Product (Left -> Top) */}
           <motion.img
             src={redPd}
             className="absolute w-[500px] h-auto drop-shadow-2xl origin-center"
             style={{
-              x: redXVal,
-              y: redYVal,
-              scale: redScaleVal,
-              rotate: redRotVal,
+              x: redX,
+              y: redY,
+              scale: productScale,
+              rotate: redRotate,
             }}
           />
-        </div>
-
-        {/* --- FINAL TEXT CONTENT --- */}
-        <motion.div
-          className="absolute bottom-20 z-30 text-center max-w-4xl px-4"
-          style={{ opacity: bioOpacity, y: bioY }}
-        >
-          <p className="font-paperlogy text-[24px] leading-[1.4] text-black/80 font-medium">
-            The collection features three standout models, inspired by{" "}
-            <span className="text-black/60">
-              parametric design, optical art, and futuristic sculptural forms.
-            </span>
-          </p>
-          <p className="font-paperlogy text-[24px] leading-[1.4] text-black/40 mt-2">
-            Diesel's iconic 'D' monogram adds a signature touch,{" "}
-            <span className="text-black/20">
-              reflecting the brand's identity in every detail.
-            </span>
-          </p>
+          {/* Black Product (Center) */}
+          <motion.img
+            src={blackPd}
+            className="absolute w-[500px] h-auto drop-shadow-2xl origin-center"
+            style={{
+              x: blackX,
+              y: blackY,
+              scale: productScale,
+              rotate: blackRotate,
+            }}
+          />
+          {/* Clear Product (Right -> Bottom) */}
+          <motion.img
+            src={clearPd}
+            className="absolute w-[500px] h-auto drop-shadow-2xl origin-center"
+            style={{
+              x: clearX,
+              y: clearY,
+              scale: productScale,
+              rotate: clearRotate,
+            }}
+          />
         </motion.div>
       </div>
     </div>
