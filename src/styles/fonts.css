@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Alumni+Sans:wght@900&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=switzer@100,101,200,201,300,301,400,401,500,501,600,601,700,701,800,801,900,901&f[]=sentient@100,101,200,201,300,301,400,401,500,501,600,601,700,701,800,801,900,901&display=swap");
+
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../font/Paperlogy-1Thin.ttf") format("woff2");
+  font-weight: 100;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../font/Paperlogy-2ExtraLight.ttf") format("woff2");
+  font-weight: 200;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../font/Paperlogy-3Light.ttf") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../font/Paperlogy-4Regular.ttf") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../font/Paperlogy-5Medium.ttf") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../font/Paperlogy-6SemiBold.ttf") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../font/Paperlogy-7Bold.ttf") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../font/Paperlogy-8ExtraBold.ttf") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../font/Paperlogy-9Black.ttf") format("woff2");
+  font-weight: 900;
+  font-display: swap;
+}

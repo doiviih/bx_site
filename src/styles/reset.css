@@ -1,0 +1,52 @@
+/* 1. box-sizing 통일 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. 기본 margin 제거 */
+* {
+  margin: 0;
+}
+
+/* 3. html / body 기본 세팅 */
+html,
+body {
+  height: 100%;
+}
+
+/* 4. body 기본값 */
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 5. 미디어 요소 리셋 */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 6. 폼 요소 리셋 */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 7. 텍스트 오버플로우 방지 */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
