@@ -36,7 +36,7 @@ export default function FifthSection() {
   const animationEnd = 0.8;
 
   // Scale (Common)
-  const productScale = useTransform(scrollYProgress, [0.8, 1], [0.8, 1.2]);
+  const productScale = useTransform(scrollYProgress, [0.4, 1], [0.8, 1.2]);
 
   // Red (Left -> Top) - Clockwise rotation in position
   const redX = useTransform(
@@ -96,7 +96,7 @@ export default function FifthSection() {
   const productScrollY = useTransform(
     scrollYProgress,
     [0.8, 1],
-    ["0vh", "-35vh"],
+    ["0vh", "-55vh"],
   );
 
   return (

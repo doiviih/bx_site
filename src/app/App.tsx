@@ -4,6 +4,8 @@ import SecondSection from "./SecondSection";
 import ThirdSection from "./ThirdSection";
 import FourthSection from "./FourthSection";
 import FifthSection from "./FifthSection";
+import SixthSection from "./SixthSection";
+import SeventhSection from "./SeventhSection";
 
 export default function App() {
   return (
@@ -15,6 +17,8 @@ export default function App() {
       <ThirdSection />
       <FourthSection />
       <FifthSection />
+      <SixthSection />
+      <SeventhSection />
     </>
   );
 }
