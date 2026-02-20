@@ -65,9 +65,9 @@ export default function SecondSection() {
   };
 
   return (
-    <section className="relative w-full z-20">
+    <section className="relative w-full z-20 overflow-x-hidden">
       {/* Background and Content Container */}
-      <div className="relative w-full h-fit">
+      <div className="relative w-full h-fit overflow-x-hidden">
         {/* Background Image - Dictates Height */}
         <img
           src={paperBg}
@@ -78,27 +78,27 @@ export default function SecondSection() {
         {/* Content Overlay */}
         <div className="absolute inset-0 pt-[90px] max-w-[1920px] mx-auto">
           {/* Silver sculpture - Left */}
-          <div className="absolute left-[-155px] top-[100px] w-[551px] h-[551px] rotate-[30deg]">
+          <div className="absolute left-[-155px] top-[280px] w-[551px] h-[551px] rotate-[30deg]">
             <img
               src={silverSculpture}
               alt="Silver metallic sculpture"
               className="w-full h-full object-contain"
               style={{
                 opacity: scrollProgress,
-                transition: "opacity 0.3s ease-out",
+                transition: "opacity 0.1s ease-out",
               }}
             />
           </div>
 
           {/* Red sculpture - Right (positioned lower) */}
-          <div className="absolute right-[-86px] bottom-[88px] w-[422px] h-[422px]">
+          <div className="absolute right-[-86px] bottom-[230px] w-[422px] h-[422px]">
             <img
               src={redSculpture}
               alt="Red glossy sculpture"
               className="w-full h-full object-contain"
               style={{
                 opacity: scrollProgress,
-                transition: "opacity 0.3s ease-out",
+                transition: "opacity 0.1s ease-out",
               }}
             />
           </div>

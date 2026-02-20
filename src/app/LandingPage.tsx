@@ -6,12 +6,12 @@ import mellisaVideo from "../assets/melissa.mp4";
 export default function LandingPage() {
   return (
     <div className="relative w-full h-screen">
-      <div className="fixed top-0 h-screen w-full overflow-hidden">
+      <div className="fixed left-0 top-0 h-screen w-[calc(1920px-(100vw-100%))] overflow-hidden">
         <div className="flex h-full w-full">
           {/* Left Video - Diesel */}
           <div className="pointer-events-none w-1/2">
             <video
-              className="h-full max-w-none w-full delay-0 animate-fade-in opacity-0 object-cover"
+              className="h-full w-full delay-0 animate-fade-in opacity-0 object-cover"
               autoPlay
               loop
               muted
@@ -35,7 +35,7 @@ export default function LandingPage() {
         </div>
 
         {/* Centered container for logos and images - max width 1920px */}
-        <div className="absolute left-1/2 top-0 -translate-x-1/2 w-full h-full max-w-[1920px]">
+        <div className="absolute inset-0 w-full h-full">
           {/* Diesel Logo - Left */}
           <div className="absolute inset-[12.04%_66.04%_66.57%_4.27%] delay-300 animate-fade-in-down opacity-0">
             <div className="absolute inset-0">

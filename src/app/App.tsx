@@ -13,7 +13,7 @@ export default function App() {
   const sixthRef = useRef<HTMLDivElement>(null);
 
   return (
-    <>
+    <div className="relative w-[calc(1920px-(100vw-100%))]">
       {/* Header - Always Fixed on Top */}
       <Header />
       <LandingPage />
@@ -26,10 +26,9 @@ export default function App() {
         <SixthSection ref={sixthRef} />
         <div className="absolute inset-0 pointer-events-none">
           <SeventhSection scrollContainerRef={sixthRef} />
+          <EighthSection scrollContainerRef={sixthRef} />
         </div>
       </div>
-
-      <EighthSection />
-    </>
+    </div>
   );
 }

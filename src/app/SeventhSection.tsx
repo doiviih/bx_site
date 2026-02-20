@@ -18,15 +18,15 @@ function ParallaxText({
   direction,
   scrollYProgress,
 }: ParallaxTextProps) {
-  // Feed scroll progress through wrap() — same seamless loop as time-based,
-  // but now driven by scroll position. Multiplier sets how fast rows travel.
-  const x = useTransform(
-    scrollYProgress,
-    (v) => `${wrap(-20, -45, v * direction * 80)}%`,
-  );
+  // Keep wrap-based loop, but cap the driving value so motion stops growing
+  // after the equivalent of +/-1000px travel.
+  const x = useTransform(scrollYProgress, (v) => {
+    const clamped = Math.max(-585, Math.min(585, v * direction * 2200));
+    return `${wrap(-20, -45, clamped * 0.02)}%`;
+  });
 
   return (
-    <div className="overflow-hidden m-0 whitespace-nowrap flex flex-nowrap">
+    <div className="w-full overflow-hidden m-0 whitespace-nowrap flex flex-nowrap">
       <motion.div
         className="font-alumni font-black text-[210px] uppercase flex whitespace-nowrap flex-nowrap leading-[100%]"
         style={{ x }}
@@ -52,29 +52,24 @@ export default function SeventhSection({
     offset: ["start start", "end end"],
   });
 
-  // Section fades in
-  const opacity = useTransform(scrollYProgress, [0.2, 0.6], [0, 1]);
-
-  // Section background transitions black → red near the very end so it
-  // seamlessly connects with EighthSection's red bg
-  const backgroundColor = useTransform(
+  const opacity = useTransform(
     scrollYProgress,
-    [0.85, 1.0],
-    ["#000000", "#E2001A"],
+    [0.12, 0.18, 0.86, 0.96],
+    [0, 1, 1, 0],
   );
-
-  // The text block itself rotates, scales, and drifts — zooming into the red letters
-  const rotate = useTransform(scrollYProgress, [0.6, 1.0], [0, -20]);
+  const stackRotate = useTransform(scrollYProgress, [0.2, 0.24], [0, -20]);
+  const stackScale = useTransform(scrollYProgress, [0.21, 0.45], [1, 78]);
 
   return (
     <motion.section
-      style={scrollContainerRef ? { opacity, backgroundColor } : {}}
-      // No overflow-hidden here — let the scaled text bleed to all edges
-      className="sticky top-0 inset-0 w-full text-[#E2001A] py-24 flex flex-col justify-center"
+      style={scrollContainerRef ? { opacity } : {}}
+      className="sticky top-0 h-screen w-full overflow-hidden [contain:paint] text-[#E2001A]"
     >
       <motion.div
-        style={scrollContainerRef ? { rotate } : {}}
-        className="flex flex-col gap-0 origin-center"
+        style={
+          scrollContainerRef ? { rotate: stackRotate, scale: stackScale } : {}
+        }
+        className="absolute inset-0 flex flex-col justify-center gap-0 origin-center"
       >
         <ParallaxText direction={-1} scrollYProgress={scrollYProgress}>
           CONTRADICTION becomes Creation
@@ -86,6 +81,9 @@ export default function SeventhSection({
           CONTRADICTION becomes Creation
         </ParallaxText>
         <ParallaxText direction={1} scrollYProgress={scrollYProgress}>
+          CONTRADICTION becomes Creation
+        </ParallaxText>
+        <ParallaxText direction={-1} scrollYProgress={scrollYProgress}>
           CONTRADICTION becomes Creation
         </ParallaxText>
       </motion.div>
