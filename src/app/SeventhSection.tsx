@@ -1,59 +1,30 @@
-import { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useMotionValue,
-  useVelocity,
-  useAnimationFrame,
-} from "motion/react";
+import { RefObject } from "react";
+import { motion, MotionValue, useScroll, useTransform } from "motion/react";
 import { wrap } from "motion";
+
+interface SeventhSectionProps {
+  scrollContainerRef?: RefObject<HTMLDivElement | null>;
+}
 
 interface ParallaxTextProps {
   children: string;
-  baseVelocity: number;
+  /** -1 = slides left, 1 = slides right */
+  direction: 1 | -1;
+  scrollYProgress: MotionValue<number>;
 }
 
-function ParallaxText({ children, baseVelocity = 100 }: ParallaxTextProps) {
-  const baseX = useMotionValue(0);
-  const { scrollY } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(scrollVelocity, {
-    damping: 50,
-    stiffness: 400,
-  });
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
-    clamp: false,
-  });
+function ParallaxText({
+  children,
+  direction,
+  scrollYProgress,
+}: ParallaxTextProps) {
+  // Feed scroll progress through wrap() — same seamless loop as time-based,
+  // but now driven by scroll position. Multiplier sets how fast rows travel.
+  const x = useTransform(
+    scrollYProgress,
+    (v) => `${wrap(-20, -45, v * direction * 80)}%`,
+  );
 
-  /**
-   * This is a magic wrapping for the length of the text - you have to replace for wrapping that works for you or dynamically calculate
-   */
-  const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
-
-  const directionFactor = useRef<number>(1);
-  useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
-
-    /**
-     * This is what changes the direction of the scroll once we
-     * switch scrolling directions.
-     */
-    if (velocityFactor.get() < 0) {
-      directionFactor.current = -1;
-    } else if (velocityFactor.get() > 0) {
-      directionFactor.current = 1;
-    }
-
-    moveBy += directionFactor.current * moveBy * velocityFactor.get();
-
-    baseX.set(baseX.get() + moveBy);
-  });
-
-  /**
-   * The number of times to repeat the child text should be dynamic based on the size of the text and viewport
-   */
   return (
     <div className="overflow-hidden m-0 whitespace-nowrap flex flex-nowrap">
       <motion.div
@@ -73,32 +44,51 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxTextProps) {
   );
 }
 
-export default function SeventhSection() {
+export default function SeventhSection({
+  scrollContainerRef,
+}: SeventhSectionProps) {
+  const { scrollYProgress } = useScroll({
+    target: scrollContainerRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Section fades in
+  const opacity = useTransform(scrollYProgress, [0.2, 0.6], [0, 1]);
+
+  // Section background transitions black → red near the very end so it
+  // seamlessly connects with EighthSection's red bg
+  const backgroundColor = useTransform(
+    scrollYProgress,
+    [0.85, 1.0],
+    ["#000000", "#E2001A"],
+  );
+
+  // The text block itself rotates, scales, and drifts — zooming into the red letters
+  const rotate = useTransform(scrollYProgress, [0.6, 1.0], [0, -20]);
+
   return (
-    <section className="relative w-full bg-black text-[#E2001A66] py-24 overflow-hidden flex flex-col justify-center min-h-screen">
-      <div className="flex flex-col gap-0 opacity-80">
-        <ParallaxText baseVelocity={-2}>
+    <motion.section
+      style={scrollContainerRef ? { opacity, backgroundColor } : {}}
+      // No overflow-hidden here — let the scaled text bleed to all edges
+      className="sticky top-0 inset-0 w-full text-[#E2001A] py-24 flex flex-col justify-center"
+    >
+      <motion.div
+        style={scrollContainerRef ? { rotate } : {}}
+        className="flex flex-col gap-0 origin-center"
+      >
+        <ParallaxText direction={-1} scrollYProgress={scrollYProgress}>
           CONTRADICTION becomes Creation
         </ParallaxText>
-        <ParallaxText baseVelocity={2}>
+        <ParallaxText direction={1} scrollYProgress={scrollYProgress}>
           CONTRADICTION becomes Creation
         </ParallaxText>
-        <ParallaxText baseVelocity={-2}>
+        <ParallaxText direction={-1} scrollYProgress={scrollYProgress}>
           CONTRADICTION becomes Creation
         </ParallaxText>
-        <ParallaxText baseVelocity={2}>
+        <ParallaxText direction={1} scrollYProgress={scrollYProgress}>
           CONTRADICTION becomes Creation
         </ParallaxText>
-        <ParallaxText baseVelocity={-2}>
-          CONTRADICTION becomes Creation
-        </ParallaxText>
-        <ParallaxText baseVelocity={2}>
-          CONTRADICTION becomes Creation
-        </ParallaxText>
-        <ParallaxText baseVelocity={-2}>
-          CONTRADICTION becomes Creation
-        </ParallaxText>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }
