@@ -15,7 +15,7 @@ const SixthSection = forwardRef<HTMLDivElement>((_, ref) => {
   });
 
   // circle scale: stay 0 for a bit, then explode
-  const circleScale = useTransform(scrollYProgress, [0.05, 0.1], [0, 600]);
+  const circleScale = useTransform(scrollYProgress, [0.05, 0.1], [0, 754]);
 
   // optional: only show the circle after it starts
   const circleOpacity = useTransform(scrollYProgress, [0.02, 0.04], [0, 1]);
@@ -23,8 +23,8 @@ const SixthSection = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div ref={resolvedRef} className="relative h-[3000vh] bg-white">
       {/* Sticky viewport */}
-      <div className="sticky w-full top-[-150px]">
-        <p className="absolute top-[274px] left-[80px] w-fit text-extrabold text-[48px] font-alumni text-black leading-[120%] tracking-[-0.03em]">
+      <div className="sticky w-full top-0 overflow-hidden">
+        <p className="absolute top-[10%] left-[80px] w-fit text-extrabold text-[48px] font-alumni text-black leading-[120%] tracking-[-0.03em]">
           The collection features three standout models, inspired by
           <br /> parametric design, optical art, and futuristic sculptural
           forms.
@@ -33,7 +33,7 @@ const SixthSection = forwardRef<HTMLDivElement>((_, ref) => {
         </p>
 
         {/* Finger Image Container */}
-        <div className="relative z-10 top-[150px]">
+        <div className="relative z-10 top-0">
           <img
             src={FingerImage}
             alt="Finger Touching"
@@ -52,7 +52,7 @@ const SixthSection = forwardRef<HTMLDivElement>((_, ref) => {
           </div>
         </div>
 
-        <p className="z-11 absolute top-[860px] right-[80px] w-fit text-extrabold text-[48px] font-alumni text-black leading-[120%] tracking-[-0.03em] text-right">
+        <p className="z-11 absolute bottom-[12%] right-[80px] w-fit text-extrabold text-[48px] font-alumni text-black leading-[120%] tracking-[-0.03em] text-right">
           Melissa’s jelly material meets Diesel’s experimental
           <br />
           design, creating a playful and unique look.

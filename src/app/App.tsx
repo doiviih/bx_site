@@ -13,7 +13,7 @@ export default function App() {
   const sixthRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="relative w-[calc(1920px-(100vw-100%))]">
+    <div className="relative w-full">
       {/* Header - Always Fixed on Top */}
       <Header />
       <LandingPage />

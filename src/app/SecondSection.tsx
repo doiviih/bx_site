@@ -67,7 +67,7 @@ export default function SecondSection() {
   return (
     <section className="relative w-full z-20 overflow-x-hidden">
       {/* Background and Content Container */}
-      <div className="relative w-full h-fit overflow-x-hidden">
+      <div className="relative w-full overflow-x-hidden">
         {/* Background Image - Dictates Height */}
         <img
           src={paperBg}
@@ -91,7 +91,7 @@ export default function SecondSection() {
           </div>
 
           {/* Red sculpture - Right (positioned lower) */}
-          <div className="absolute right-[-86px] bottom-[230px] w-[422px] h-[422px]">
+          <div className="absolute right-[-86px] bottom-[200px] w-[422px] h-[422px]">
             <img
               src={redSculpture}
               alt="Red glossy sculpture"

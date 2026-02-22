@@ -21,7 +21,7 @@ function ParallaxText({
   // Keep wrap-based loop, but cap the driving value so motion stops growing
   // after the equivalent of +/-1000px travel.
   const x = useTransform(scrollYProgress, (v) => {
-    const clamped = Math.max(-585, Math.min(585, v * direction * 2200));
+    const clamped = Math.max(-577, Math.min(577, v * direction * 2200));
     return `${wrap(-20, -45, clamped * 0.02)}%`;
   });
 
@@ -57,8 +57,9 @@ export default function SeventhSection({
     [0.12, 0.18, 0.86, 0.96],
     [0, 1, 1, 0],
   );
-  const stackRotate = useTransform(scrollYProgress, [0.2, 0.24], [0, -20]);
+  const stackRotate = useTransform(scrollYProgress, [0.21, 0.24], [0, -20]);
   const stackScale = useTransform(scrollYProgress, [0.21, 0.45], [1, 78]);
+  const y = useTransform(scrollYProgress, [0.21, 0.45], [0, -7000]);
 
   return (
     <motion.section
@@ -67,7 +68,9 @@ export default function SeventhSection({
     >
       <motion.div
         style={
-          scrollContainerRef ? { rotate: stackRotate, scale: stackScale } : {}
+          scrollContainerRef
+            ? { rotate: stackRotate, scale: stackScale, y }
+            : {}
         }
         className="absolute inset-0 flex flex-col justify-center gap-0 origin-center"
       >
@@ -81,9 +84,6 @@ export default function SeventhSection({
           CONTRADICTION becomes Creation
         </ParallaxText>
         <ParallaxText direction={1} scrollYProgress={scrollYProgress}>
-          CONTRADICTION becomes Creation
-        </ParallaxText>
-        <ParallaxText direction={-1} scrollYProgress={scrollYProgress}>
           CONTRADICTION becomes Creation
         </ParallaxText>
       </motion.div>

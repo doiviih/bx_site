@@ -96,7 +96,7 @@ export default function FifthSection() {
   const productScrollY = useTransform(
     scrollYProgress,
     [0.8, 1],
-    ["0vh", "-47vh"],
+    ["0vh", "-49vh"],
   );
 
   return (

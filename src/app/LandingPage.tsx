@@ -6,7 +6,7 @@ import mellisaVideo from "../assets/melissa.mp4";
 export default function LandingPage() {
   return (
     <div className="relative w-full h-screen">
-      <div className="fixed left-0 top-0 h-screen w-[calc(1920px-(100vw-100%))] overflow-hidden">
+      <div className="fixed top-0 h-screen w-full overflow-hidden">
         <div className="flex h-full w-full">
           {/* Left Video - Diesel */}
           <div className="pointer-events-none w-1/2">
