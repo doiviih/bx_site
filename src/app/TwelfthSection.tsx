@@ -1,9 +1,10 @@
 import { motion } from "motion/react";
-import collection1 from "../assets/collection1.png";
-import collection2 from "../assets/collection2.png";
-import collection3 from "../assets/collection3.png";
-import collection4 from "../assets/collection4.png";
-import collection5 from "../assets/collection5.png";
+import social1 from "../assets/social1.png";
+import social2 from "../assets/social2.jpg";
+import social3 from "../assets/social3.jpg";
+import social4 from "../assets/social4.png";
+import social5 from "../assets/social5.png";
+import social6 from "../assets/social6.png";
 
 const CARD_HEIGHT = 629;
 const CARD_GAP = 20;
@@ -56,17 +57,17 @@ export default function TwelfthSection() {
     <section className="relative h-screen w-full bg-[#07090f] overflow-hidden z-[70]">
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(0,0,0,0)_12%)] pointer-events-none" />
 
-      <div className="relative z-10 h-full w-full grid grid-cols-2">
+      <div className="relative z-10 h-full w-full max-w-[1920px] mx-auto grid grid-cols-2">
         <div className="h-full pl-[80px] pt-[122px]">
           <h2 className="font-['Switzer_Variable',_sans-serif] text-[100px] leading-[1.2] tracking-[-4px] text-white font-extrabold whitespace-pre-line">
             {`SHARE\nOUR\nCOLLECTION\nON SOCIAL`}
           </h2>
 
-          <button className="mt-[34px] h-[60px] px-[44px] rounded-[32px] border border-white text-white font-['Switzer_Variable',_sans-serif] text-[20px] font-extrabold tracking-[-0.8px]">
+          <button className="mt-[24px] h-[60px] px-[44px] rounded-[32px] border border-white text-white font-['Switzer_Variable',_sans-serif] text-[20px] font-extrabold tracking-[-0.8px]">
             Share the Boldness
           </button>
 
-          <div className="mt-[120px] font-['Alumni_Sans',_sans-serif] text-[40px] font-bold text-[#E4E4E4] leading-[1.35]">
+          <div className="mt-[106px] font-['Alumni_Sans',_sans-serif] text-[40px] font-bold text-[#E4E4E4] leading-[1.35]">
             <p>#DIESEL X MELISSA</p>
             <p>#JELLY SHOES</p>
             <p>#INNOVATIVE COLLABORATION</p>
@@ -76,13 +77,13 @@ export default function TwelfthSection() {
         <div className="relative h-full">
           <div className="absolute inset-0 flex items-start justify-center gap-[20px] pt-0">
             <RollingColumn
-              images={[collection1, collection2]}
+              images={[social1, social2, social3]}
               direction="down"
               duration={22}
               initialOffset={-37}
             />
             <RollingColumn
-              images={[collection3, collection4, collection5]}
+              images={[social4, social5, social6]}
               direction="up"
               duration={30}
               initialOffset={-424}

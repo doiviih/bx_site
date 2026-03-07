@@ -12,6 +12,7 @@ import NineSection from "./NineSection";
 import TenthSection from "./TenthSection";
 import EleventhSection from "./EleventhSection";
 import TwelfthSection from "./TwelfthSection";
+import ThirteenthSection from "./ThirteenthSection";
 
 export default function App() {
   const sixthRef = useRef<HTMLDivElement>(null);
@@ -37,6 +38,7 @@ export default function App() {
       <TenthSection />
       <EleventhSection />
       <TwelfthSection />
+      <ThirteenthSection />
     </div>
   );
 }
