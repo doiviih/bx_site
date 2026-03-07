@@ -85,7 +85,7 @@ export default function FourthSection() {
             </div>
           </div>
 
-          <span className="block h-[321px] w-[642px] mt-[236px] ml-[897px]">
+          <span className="block h-[321px] w-[642px] mt-[236px] ml-auto mr-[381px]">
             <img
               alt="melissa image3"
               className="size-full object-cover"

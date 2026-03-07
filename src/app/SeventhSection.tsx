@@ -64,7 +64,7 @@ export default function SeventhSection({
   return (
     <motion.section
       style={scrollContainerRef ? { opacity } : {}}
-      className="sticky top-0 h-screen w-full overflow-hidden [contain:paint] text-[#E2001A]"
+      className="sticky top-0 h-screen w-full [contain:paint] text-[#E2001A]"
     >
       <motion.div
         style={

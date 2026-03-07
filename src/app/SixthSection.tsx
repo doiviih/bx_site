@@ -15,7 +15,7 @@ const SixthSection = forwardRef<HTMLDivElement>((_, ref) => {
   });
 
   // circle scale: stay 0 for a bit, then explode
-  const circleScale = useTransform(scrollYProgress, [0.05, 0.1], [0, 754]);
+  const circleScale = useTransform(scrollYProgress, [0.05, 0.1], [0, 1000]);
 
   // optional: only show the circle after it starts
   const circleOpacity = useTransform(scrollYProgress, [0.02, 0.04], [0, 1]);
@@ -23,7 +23,7 @@ const SixthSection = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div ref={resolvedRef} className="relative h-[3000vh] bg-white">
       {/* Sticky viewport */}
-      <div className="sticky w-full top-0 overflow-hidden">
+      <div className="sticky w-full h-[100vh] top-0 overflow-hidden">
         <p className="absolute top-[10%] left-[80px] w-fit text-extrabold text-[48px] font-alumni text-black leading-[120%] tracking-[-0.03em]">
           The collection features three standout models, inspired by
           <br /> parametric design, optical art, and futuristic sculptural
@@ -33,7 +33,7 @@ const SixthSection = forwardRef<HTMLDivElement>((_, ref) => {
         </p>
 
         {/* Finger Image Container */}
-        <div className="relative z-10 top-0">
+        <div className="relative z-10 top-1/2 -translate-y-1/2">
           <img
             src={FingerImage}
             alt="Finger Touching"

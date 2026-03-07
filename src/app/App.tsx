@@ -8,6 +8,10 @@ import FifthSection from "./FifthSection";
 import SixthSection from "./SixthSection";
 import SeventhSection from "./SeventhSection";
 import EighthSection from "./EighthSection";
+import NineSection from "./NineSection";
+import TenthSection from "./TenthSection";
+import EleventhSection from "./EleventhSection";
+import TwelfthSection from "./TwelfthSection";
 
 export default function App() {
   const sixthRef = useRef<HTMLDivElement>(null);
@@ -27,8 +31,12 @@ export default function App() {
         <div className="absolute inset-0 pointer-events-none">
           <SeventhSection scrollContainerRef={sixthRef} />
           <EighthSection scrollContainerRef={sixthRef} />
+          <NineSection scrollContainerRef={sixthRef} />
         </div>
       </div>
+      <TenthSection />
+      <EleventhSection />
+      <TwelfthSection />
     </div>
   );
 }

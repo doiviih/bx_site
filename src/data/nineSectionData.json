@@ -1,0 +1,85 @@
+{
+  "productName": "Melissa Quantum",
+  "variants": [
+    {
+      "id": "red",
+      "name": "Melissa Quantum Platform",
+      "price": "₩ 240,000",
+      "color": "#E84C4C",
+      "views": {
+        "default": [
+          "assets/pd_img/form_red1.png",
+          "assets/pd_img/form_red2.png",
+          "assets/pd_img/form_red3.png",
+          "assets/pd_img/form_red4.png",
+          "assets/pd_img/form_red5.png",
+          "assets/pd_img/form_red6.png",
+          "assets/pd_img/form_red7.png"
+        ],
+        "transparent": [
+          "assets/pd_img/form_transparent.png",
+          "assets/pd_img/form_transparent2.png",
+          "assets/pd_img/form_transparent3.png",
+          "assets/pd_img/form_transparent4.png",
+          "assets/pd_img/form_transparent5.png",
+          "assets/pd_img/form_transparent6.png",
+          "assets/pd_img/form_transparent7.png"
+        ],
+        "black": [
+          "assets/pd_img/form_black.png",
+          "assets/pd_img/form_black2.png",
+          "assets/pd_img/form_black3.png",
+          "assets/pd_img/form_black4.png",
+          "assets/pd_img/form_black5.png",
+          "assets/pd_img/form_black6.png",
+          "assets/pd_img/form_black7.png"
+        ],
+        "lightBlue": [
+          "assets/pd_img/form_lightBlue.png",
+          "assets/pd_img/form_lightBlue2.png",
+          "assets/pd_img/form_lightBlue3.png",
+          "assets/pd_img/form_lightBlue4.png",
+          "assets/pd_img/form_lightBlue5.png",
+          "assets/pd_img/form_lightBlue6.png",
+          "assets/pd_img/form_lightBlue7.png",
+          "assets/pd_img/form_lightBlue8.png"
+        ]
+      },
+      "viewColors": {
+        "default": "#E84C4C",
+        "transparent": "#E4E4E4",
+        "black": "#232222",
+        "lightBlue": "#ADC5D2"
+      }
+    },
+    {
+      "id": "black",
+      "name": "Melissa Quantum Sneakers X",
+      "price": "₩ 390,000",
+      "color": "#232222",
+      "views": {
+        "default": [
+          "assets/pd_img/black.png",
+          "assets/pd_img/black.png",
+          "assets/pd_img/black.png",
+          "assets/pd_img/black.png"
+        ]
+      },
+      "viewColors": {
+        "default": "#232222"
+      }
+    },
+    {
+      "id": "silver",
+      "name": "Melissa Quantum Thong",
+      "price": "₩ 150,000",
+      "color": "#E4E4E4",
+      "views": {
+        "default": ["assets/pd_img/transparent.png"]
+      },
+      "viewColors": {
+        "default": "#E4E4E4"
+      }
+    }
+  ]
+}

@@ -56,7 +56,7 @@ function Header() {
   return (
     <section
       id="header"
-      className="fixed h-[90px] left-0 top-0 w-screen z-100 px-20 delay-100 animate-fade-in-up opacity-0"
+      className="fixed w-full h-[90px] left-0 top-0 z-100 px-20 delay-100 animate-fade-in-up opacity-0"
     >
       <DieselLogo />
       <div className="flex justify-end items-center gap-8 h-full">
