@@ -165,10 +165,12 @@ export default function TenthSection() {
     time,
     (t) => -((t / 1000) * (360 / 34)) % 360,
   );
-  const headingY = useTransform(scrollYProgress, [0.1, 0.46], [0, -400]);
+  const headingY = useTransform(scrollYProgress, [0.06, 0.32], [0, -270]);
+  const headingOpacity = useTransform(scrollYProgress, [0.18, 0.36], [1, 0]);
+  const cardsY = useTransform(scrollYProgress, [0.12, 0.46], [678, 0]);
 
   return (
-    <section ref={sectionRef} className="relative h-[150vh] w-full z-[60]">
+    <section ref={sectionRef} className="relative h-[220vh] w-full z-[60]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
@@ -179,23 +181,23 @@ export default function TenthSection() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.34),transparent_38%),radial-gradient(circle_at_76%_72%,rgba(255,255,255,0.24),transparent_42%),radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.52),transparent_45%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[#121212]/28 pointer-events-none" />
 
-        <motion.div style={{ y: headingY }}>
-          <h2 className="absolute left-1/2 -translate-x-1/2 top-[150px] w-[1320px] text-center text-white text-[64px] md:text-[88px] lg:text-[112px] leading-[1.04] tracking-[-0.04em] font-extrabold font-['Alumni_Sans',_sans-serif] pointer-events-none z-40">
-            Discover what our users are
-            <br />
-            saying about their experience.
-          </h2>
+        <motion.p
+          style={{ y: headingY, opacity: headingOpacity }}
+          className="absolute left-1/2 -translate-x-1/2 top-[170px] w-[1320px] text-center text-white text-[64px] md:text-[88px] lg:text-[120px] leading-[1.04] tracking-[-0.04em] font-alumni font-extrabold pointer-events-none z-40"
+        >
+          Discover what our users are
+          <br />
+          saying about their experience.
+        </motion.p>
 
-          <div className="absolute inset-0 flex items-center justify-center mt-[980px]">
-            <div className="relative w-[1920px] h-[1080px] origin-center scale-[0.5] sm:scale-[0.62] md:scale-[0.74] lg:scale-[0.86] xl:scale-100">
-              {orbitCards.map((card) => (
-                <OrbitCard
-                  key={card.id}
-                  card={card}
-                  orbitRotate={orbitRotate}
-                />
-              ))}
-            </div>
+        <motion.div
+          style={{ y: cardsY }}
+          className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none"
+        >
+          <div className="relative w-[1920px] h-[1080px] origin-center scale-[0.5] sm:scale-[0.62] md:scale-[0.74] lg:scale-[0.86] xl:scale-100">
+            {orbitCards.map((card) => (
+              <OrbitCard key={card.id} card={card} orbitRotate={orbitRotate} />
+            ))}
           </div>
         </motion.div>
       </div>

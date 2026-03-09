@@ -12,16 +12,27 @@ import collection6 from "../assets/collection6.png";
 import collection7 from "../assets/collection7.png";
 import collection8 from "../assets/collection8.png";
 
-interface Card {
+interface CardBase {
   id: string;
   src: string;
   left: number;
-  top: number;
   width: number;
   height: number;
   speed: number;
   zIndex: number;
 }
+
+type Card = CardBase &
+  (
+    | {
+        top: number;
+        bottom?: never;
+      }
+    | {
+        top?: never;
+        bottom: number;
+      }
+  );
 
 const cards: Card[] = [
   {
@@ -52,7 +63,7 @@ const cards: Card[] = [
     width: 359,
     height: 538,
     speed: 1.0,
-    zIndex: 36,
+    zIndex: 10,
   },
   {
     id: "look-4",
@@ -88,7 +99,7 @@ const cards: Card[] = [
     id: "look-7",
     src: collection7,
     left: 3322,
-    top: 527,
+    bottom: 63,
     width: 327,
     height: 490,
     speed: 1.0,
@@ -120,7 +131,9 @@ function ParallaxCard({
       style={{
         x,
         left: card.left,
-        top: card.top,
+        ...(card.top !== undefined
+          ? { top: card.top }
+          : { bottom: card.bottom }),
         width: card.width,
         height: card.height,
         zIndex: card.zIndex,
@@ -145,7 +158,7 @@ export default function EleventhSection() {
   });
 
   const trackX = useTransform(scrollYProgress, [0, 1], [320, -2200]);
-  const titleX = useTransform(scrollYProgress, [0, 1], [0, -260]);
+  // const titleX = useTransform(scrollYProgress, [0, 1], [0, -260]);
 
   return (
     <section ref={sectionRef} className="relative h-[560vh] w-full z-[65]">
@@ -159,11 +172,11 @@ export default function EleventhSection() {
           }}
         />
 
-        <h2 className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[#E2001A] text-[160px] md:text-[220px] lg:text-[300px] font-bold leading-[1.2] tracking-[-0.04em] font-['Alumni_Sans',_sans-serif] whitespace-nowrap z-20 pointer-events-none">
+        <h2 className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[#E2001A] text-[300px] font-alumni font-bold leading-[1.2] tracking-[-4%] whitespace-nowrap z-20 pointer-events-none">
           COLLECTION
         </h2>
 
-        <div className="absolute inset-0 z-30">
+        <div className="absolute inset-0">
           {cards.map((card) => (
             <ParallaxCard key={card.id} card={card} trackX={trackX} />
           ))}

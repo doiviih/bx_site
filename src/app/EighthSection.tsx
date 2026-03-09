@@ -7,10 +7,12 @@ import keywordImg3 from "../assets/keyword3.png";
 
 interface EighthSectionProps {
   scrollContainerRef?: RefObject<HTMLDivElement | null>;
+  sectionId?: string;
 }
 
 export default function EighthSection({
   scrollContainerRef,
+  sectionId,
 }: EighthSectionProps) {
   const [cardsScale, setCardsScale] = useState(1);
 
@@ -35,7 +37,7 @@ export default function EighthSection({
   const sectionOpacity = useTransform(scrollYProgress, [0.47, 0.52], [0, 1]);
 
   // 배경 심볼 이미지의 opacity (최대 0.5)
-  const symbolOpacity = useTransform(scrollYProgress, [0.55, 0.65], [0, 0.5]);
+  const symbolOpacity = useTransform(scrollYProgress, [0.55, 0.65], [0, 0.8]);
 
   // 텍스트의 opacity (최대 1.0)
   const textOpacity = useTransform(scrollYProgress, [0.55, 0.65], [0, 1]);
@@ -75,6 +77,7 @@ export default function EighthSection({
 
   return (
     <motion.section
+      id={sectionId}
       style={scrollContainerRef ? { opacity: sectionOpacity } : {}}
       className="sticky top-0 h-screen w-full bg-[#E2001A] overflow-hidden flex flex-col items-center justify-center font-['Switzer_Variable',_sans-serif]"
     >
@@ -103,7 +106,7 @@ export default function EighthSection({
             {[...Array(10)].map((_, j) => (
               <span
                 key={j}
-                className="font-alumni text-white text-[200px] md:text-[240px] uppercase tracking-tight mr-[40px]"
+                className="font-alumni font-black text-white text-[200px] md:text-[240px] uppercase tracking-tight mr-[40px]"
               >
                 NEO FORM
               </span>
@@ -115,10 +118,10 @@ export default function EighthSection({
       {/* Horizontal Cards Area */}
       <div className="absolute inset-0 z-20 flex items-center justify-center">
         <div
-          className="relative w-full max-w-[1920px] h-full"
+          className="relative w-[1920px] h-[1080px] shrink-0"
           style={{
             transform: `scale(${cardsScale})`,
-            transformOrigin: "left center",
+            transformOrigin: "center center",
           }}
         >
           {cardData.map((card) => {
@@ -150,11 +153,11 @@ export default function EighthSection({
                 </div>
 
                 {/* Card Bottom Content with Gradient Text Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-10 pt-20 bg-gradient-to-t from-black/80 to-transparent text-white">
-                  <h3 className="text-[32px] font-bold uppercase leading-[1.4] mb-2 tracking-tight">
+                <div className="absolute bottom-0 left-0 right-0 p-10 pt-20 bg-gradient-to-t from-[#4E4E4E] to-transparent text-white">
+                  <h3 className="font-switzer text-[32px] font-bold uppercase leading-[1.4] mb-2">
                     {card.title}
                   </h3>
-                  <p className="text-[20px] font-bold leading-[1.4] opacity-90 tracking-tight">
+                  <p className="font-switzer text-[20px] font-bold leading-[1.4]">
                     {card.desc}
                   </p>
                 </div>

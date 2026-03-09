@@ -12,7 +12,7 @@ export default function ThirdSection() {
   });
 
   // Brightness effect: Logo darkens as user scrolls down
-  const brightness = useTransform(scrollYProgress, [0, 1], [1, 0.4]); // 100% to 20% brightness
+  const brightness = useTransform(scrollYProgress, [0, 0.3], [1, 0.3]); // 100% to 20% brightness
 
   return (
     <section ref={containerRef} className="relative w-full">

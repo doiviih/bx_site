@@ -72,7 +72,7 @@ export default function FourthSection() {
               />
             </span>
             <div className="text-right pt-[286px]">
-              <p className=" font-switzer font-extrabold text-[#5f003e] text-[100px] tracking-[-0.04em] leading-[100%]">
+              <p className="font-switzer font-extrabold text-[#5f003e] text-[100px] tracking-[-0.04em] leading-[100%]">
                 Sustainability
               </p>
               <p className="pt-6 font-sentient font-bold text-[#121212] text-[32px] tracking-[-0.04em]">

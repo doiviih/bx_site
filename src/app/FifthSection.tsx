@@ -42,7 +42,7 @@ export default function FifthSection() {
   const redX = useTransform(
     scrollYProgress,
     [animationStart, animationEnd],
-    [-600, 0],
+    [-486, 0],
   );
   const redY = useTransform(
     scrollYProgress,
@@ -59,7 +59,7 @@ export default function FifthSection() {
   const blackX = useTransform(
     scrollYProgress,
     [animationStart, animationEnd],
-    [0, 0],
+    [32, 0],
   );
   const blackY = useTransform(
     scrollYProgress,
@@ -76,7 +76,7 @@ export default function FifthSection() {
   const clearX = useTransform(
     scrollYProgress,
     [animationStart, animationEnd],
-    [600, 0],
+    [546, 0],
   );
   const clearY = useTransform(
     scrollYProgress,

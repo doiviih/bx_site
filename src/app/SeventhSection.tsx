@@ -28,7 +28,7 @@ function ParallaxText({
   return (
     <div className="w-full overflow-hidden m-0 whitespace-nowrap flex flex-nowrap">
       <motion.div
-        className="font-alumni font-black text-[210px] uppercase flex whitespace-nowrap flex-nowrap leading-[100%]"
+        className="font-alumni font-black text-[210px] flex whitespace-nowrap flex-nowrap leading-[80%] tracking-[-3%]"
         style={{ x }}
       >
         <span className="block mr-[30px]">{children} </span>
@@ -75,16 +75,16 @@ export default function SeventhSection({
         className="absolute inset-0 flex flex-col justify-center gap-0 origin-center"
       >
         <ParallaxText direction={-1} scrollYProgress={scrollYProgress}>
-          CONTRADICTION becomes Creation
+          Contradiction becomes Creation
         </ParallaxText>
         <ParallaxText direction={1} scrollYProgress={scrollYProgress}>
-          CONTRADICTION becomes Creation
+          Contradiction becomes Creation
         </ParallaxText>
         <ParallaxText direction={-1} scrollYProgress={scrollYProgress}>
-          CONTRADICTION becomes Creation
+          Contradiction becomes Creation
         </ParallaxText>
         <ParallaxText direction={1} scrollYProgress={scrollYProgress}>
-          CONTRADICTION becomes Creation
+          Contradiction becomes Creation
         </ParallaxText>
       </motion.div>
     </motion.section>

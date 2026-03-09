@@ -99,11 +99,19 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
   }, [activeViewIndex, safeViewIndex]);
 
   useEffect(() => {
+    const track = thumbnailTrackRef.current;
     const activeButton = thumbnailButtonRefs.current[safeViewIndex];
-    activeButton?.scrollIntoView({
+    if (!track || !activeButton) return;
+
+    // Keep thumbnail movement scoped to the carousel track only.
+    const targetLeft =
+      activeButton.offsetLeft - track.clientWidth / 2 + activeButton.clientWidth / 2;
+    const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+    const clampedLeft = Math.max(0, Math.min(targetLeft, maxScrollLeft));
+
+    track.scrollTo({
+      left: clampedLeft,
       behavior: "smooth",
-      inline: "center",
-      block: "nearest",
     });
   }, [safeViewIndex, activeColorIndex, activeViewType]);
 
@@ -150,35 +158,43 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
       <div className="relative z-10 w-full max-w-[1400px] flex flex-col items-center">
         {/* ================= Carousel ================= */}
         <div className="relative w-full h-[470px] flex justify-center items-center overflow-visible">
-          <AnimatePresence initial={false} mode="popLayout">
-            {getVisibleColors().map((variant) => {
-              const imageSource =
-                variant.position === 0
-                  ? (variant.views[activeViewType]?.[safeViewIndex] ??
-                    variant.views.default[safeViewIndex])
-                  : variant.views.default[0];
+          {getVisibleColors().map((variant) => {
+            const imageSource =
+              variant.position === 0
+                ? (variant.views[activeViewType]?.[safeViewIndex] ??
+                  variant.views.default[safeViewIndex])
+                : variant.views.default[0];
 
-              return (
-                <motion.div
-                  key={`${variant.id}-${variant.position}`}
-                  initial={{ x: variant.position * 800 }}
-                  animate={{ x: variant.position * 822 }}
-                  exit={{ x: variant.position * 800 }}
-                  transition={{
-                    duration: 0.5,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute w-[770px] h-[470px] flex items-center justify-center"
-                >
-                  <img
+            return (
+              <motion.div
+                key={`slot-${variant.position}`}
+                animate={{
+                  x: variant.position * 822,
+                  opacity: variant.position === 0 ? 1 : 0.92,
+                  scale: variant.position === 0 ? 1 : 0.96,
+                }}
+                transition={{
+                  duration: 0.48,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                style={{ zIndex: variant.position === 0 ? 30 : 20 }}
+                className="absolute w-[770px] h-[470px] flex items-center justify-center"
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.img
+                    key={`${variant.id}-${imageSource}`}
                     src={`/${imageSource}`}
                     alt={variant.name}
-                    className="max-w-full max-h-full object-contain pointer-events-none"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.28, ease: "easeOut" }}
+                    className="max-w-full max-h-full object-contain pointer-events-none absolute inset-0 m-auto"
                   />
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* ================= Controls ================= */}

@@ -44,7 +44,7 @@ export default function SecondSection() {
             0.5,
             Math.min(
               1,
-              scrollProgress * 14 - (lineIndex * 3 + charIndex * 0.05),
+              scrollProgress * 13 - (lineIndex * 3 + charIndex * 0.03),
             ),
           );
 
