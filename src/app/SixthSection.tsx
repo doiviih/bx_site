@@ -19,7 +19,7 @@ const SixthSection = forwardRef<HTMLDivElement>((_, ref) => {
   const circleOpacity = useTransform(scrollYProgress, [0.02, 0.04], [0, 1]);
 
   return (
-    <div ref={resolvedRef} className="relative h-[3000vh] bg-white">
+    <div ref={resolvedRef} className="relative h-[2200vh] bg-white">
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Left Text */}

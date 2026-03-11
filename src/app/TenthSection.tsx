@@ -167,7 +167,7 @@ export default function TenthSection() {
   );
   const headingY = useTransform(scrollYProgress, [0.06, 0.32], [0, -270]);
   const headingOpacity = useTransform(scrollYProgress, [0.18, 0.36], [1, 0]);
-  const cardsY = useTransform(scrollYProgress, [0.12, 0.46], [678, 0]);
+  const cardsY = useTransform(scrollYProgress, [0.12, 0.46], [480, 0]);
 
   return (
     <section ref={sectionRef} className="relative h-[220vh] w-full z-[60]">

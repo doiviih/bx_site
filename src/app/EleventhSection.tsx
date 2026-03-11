@@ -157,7 +157,7 @@ export default function EleventhSection() {
     offset: ["start start", "end end"],
   });
 
-  const trackX = useTransform(scrollYProgress, [0, 1], [320, -2200]);
+  const trackX = useTransform(scrollYProgress, [0, 1], [0, -1610]);
   // const titleX = useTransform(scrollYProgress, [0, 1], [0, -260]);
 
   return (
@@ -172,9 +172,9 @@ export default function EleventhSection() {
           }}
         />
 
-        <h2 className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[#E2001A] text-[300px] font-alumni font-bold leading-[1.2] tracking-[-4%] whitespace-nowrap z-20 pointer-events-none">
+        <p className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[#E2001A] text-[300px] font-alumni font-bold leading-[1.2] tracking-[-4%] whitespace-nowrap z-20 pointer-events-none">
           COLLECTION
-        </h2>
+        </p>
 
         <div className="absolute inset-0">
           {cards.map((card) => (

@@ -50,39 +50,37 @@ function MenuIcon({
 }) {
   return (
     <div className="h-[6px] w-[36px]">
-      <div className="">
-        <motion.svg
-          className="block size-full"
-          fill="none"
-          preserveAspectRatio="none"
-          viewBox="0 0 36 8"
-        >
-          <g>
-            <motion.path
-              d="M0 1H36"
-              stroke={stroke}
-              strokeWidth="2"
-              animate={{
-                y: isOpen ? 3 : 0,
-                rotate: isOpen ? 45 : 0,
-              }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              style={{ transformBox: "fill-box", transformOrigin: "center" }}
-            />
-            <motion.path
-              d="M0 7H36"
-              stroke={stroke}
-              strokeWidth="2"
-              animate={{
-                y: isOpen ? -3 : 0,
-                rotate: isOpen ? -45 : 0,
-              }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              style={{ transformBox: "fill-box", transformOrigin: "center" }}
-            />
-          </g>
-        </motion.svg>
-      </div>
+      <motion.svg
+        className="block size-full"
+        fill="none"
+        preserveAspectRatio="none"
+        viewBox="0 0 36 8"
+      >
+        <g>
+          <motion.path
+            d="M0 1H36"
+            stroke={stroke}
+            strokeWidth="2"
+            animate={{
+              y: isOpen ? 3 : 0,
+              rotate: isOpen ? 45 : 0,
+            }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            style={{ transformBox: "fill-box", transformOrigin: "center" }}
+          />
+          <motion.path
+            d="M0 7H36"
+            stroke={stroke}
+            strokeWidth="2"
+            animate={{
+              y: isOpen ? -3 : 0,
+              rotate: isOpen ? -45 : 0,
+            }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            style={{ transformBox: "fill-box", transformOrigin: "center" }}
+          />
+        </g>
+      </motion.svg>
     </div>
   );
 }
@@ -130,7 +128,7 @@ function Header({ styleVariant = "landing" }: HeaderProps) {
     const section = document.getElementById(targetId);
     if (!section) return;
 
-    const top = section.getBoundingClientRect().top + window.scrollY - 90;
+    const top = section.getBoundingClientRect().top + window.scrollY + 45;
     window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
     setIsMenuOpen(false);
   };
@@ -187,15 +185,15 @@ function Header({ styleVariant = "landing" }: HeaderProps) {
           >
             <motion.div
               initial={{
-                clipPath: "inset(0 0 100% 0 round 0 0 36px 36px)",
+                clipPath: "inset(0 0 100% 0 0 0 36px 36px)",
                 y: -30,
               }}
               animate={{
-                clipPath: "inset(0 0 0% 0 round 0 0 36px 36px)",
+                clipPath: "inset(0 0 0% 0 0 0 36px 36px)",
                 y: 0,
               }}
               exit={{
-                clipPath: "inset(0 0 100% 0 round 0 0 36px 36px)",
+                clipPath: "inset(0 0 100% 0 0 0 36px 36px)",
                 y: -20,
               }}
               transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
@@ -203,7 +201,7 @@ function Header({ styleVariant = "landing" }: HeaderProps) {
             >
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_30%,rgba(255,255,255,0.12),transparent_48%),radial-gradient(circle_at_78%_74%,rgba(255,255,255,0.10),transparent_52%)] pointer-events-none" />
 
-              <div className="relative z-10 h-full w-full max-w-[1920px] mx-auto px-[224px]">
+              <div className="relative z-10 h-full w-full mx-auto px-[224px]">
                 <button
                   type="button"
                   aria-label="Close menu"

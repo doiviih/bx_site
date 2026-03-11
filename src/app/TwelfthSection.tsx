@@ -74,7 +74,7 @@ export default function TwelfthSection() {
 
       <div className="absolute inset-0 z-10">
         <div
-          className="absolute left-1/2 top-1/2 w-[1920px] h-[1080px]"
+          className="absolute left-1/2 top-1/2 w-full max-w-[1920px] h-screen"
           style={{
             transform: `translate(-50%, -50%) scale(${layoutScale})`,
             transformOrigin: "center center",
@@ -82,11 +82,11 @@ export default function TwelfthSection() {
         >
           <div className="relative h-full w-full grid grid-cols-2">
             <div className="h-full pl-[80px] pt-[122px]">
-              <h2 className="font-['Switzer_Variable',_sans-serif] text-[100px] leading-[1.2] tracking-[-4px] text-white font-extrabold whitespace-pre-line">
+              <p className="font-['Switzer_Variable',_sans-serif] text-[100px] leading-[1.2] tracking-[-4px] text-white font-extrabold whitespace-pre-line">
                 {`SHARE\nOUR\nCOLLECTION\nON SOCIAL`}
-              </h2>
+              </p>
 
-              <button className="mt-[24px] h-[60px] px-[44px] rounded-[32px] border border-white text-white font-['Switzer_Variable',_sans-serif] text-[20px] font-extrabold tracking-[-0.8px] transition-colors duration-300 hover:text-[#E2001A] hover:border-[#E2001A]">
+              <button className="mt-[24px] h-[60px] px-[44px] rounded-[32px] border border-white text-white font-['Switzer_Variable',_sans-serif] text-[20px] font-extrabold tracking-[-4%] transition-colors duration-300 hover:text-[#E2001A] hover:border-[#E2001A]">
                 Share the Boldness
               </button>
 

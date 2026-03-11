@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useMemo, useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import txtbg from "../assets/dieselxmelissa_txt.png";
 import nineSectionData from "../data/nineSectionData.json";
@@ -17,6 +17,7 @@ interface Variant {
     transparent?: string[];
     black?: string[];
     lightBlue?: string[];
+    pink?: string[];
   };
 }
 
@@ -40,10 +41,10 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
   const [activeViewType, setActiveViewType] = useState<ViewType>("default");
   const thumbnailTrackRef = useRef<HTMLDivElement>(null);
   const thumbnailButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const dragStateRef = useRef({
-    isDragging: false,
-    startX: 0,
-    scrollLeft: 0,
+  const thumbnailLoopRef = useRef({
+    segmentWidth: 0,
+    leftThreshold: 0,
+    rightThreshold: 0,
   });
 
   const { scrollYProgress } = useScroll({
@@ -87,6 +88,11 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
 
   const visibleViews =
     currentColor.views[activeViewType] ?? currentColor.views.default;
+  const loopedViews = useMemo(() => {
+    if (visibleViews.length === 0) return [];
+    return [...visibleViews, ...visibleViews, ...visibleViews];
+  }, [visibleViews]);
+  const loopedCount = visibleViews.length;
   const safeViewIndex = Math.min(
     activeViewIndex,
     Math.max(visibleViews.length - 1, 0),
@@ -100,12 +106,17 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
 
   useEffect(() => {
     const track = thumbnailTrackRef.current;
-    const activeButton = thumbnailButtonRefs.current[safeViewIndex];
-    if (!track || !activeButton) return;
+    if (!track || loopedCount === 0) return;
 
-    // Keep thumbnail movement scoped to the carousel track only.
+    const activeLoopIndex = safeViewIndex + loopedCount;
+    const activeButton = thumbnailButtonRefs.current[activeLoopIndex];
+    if (!activeButton) return;
+
+    // Keep the active thumbnail centered within the middle loop segment.
     const targetLeft =
-      activeButton.offsetLeft - track.clientWidth / 2 + activeButton.clientWidth / 2;
+      activeButton.offsetLeft -
+      track.clientWidth / 2 +
+      activeButton.clientWidth / 2;
     const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
     const clampedLeft = Math.max(0, Math.min(targetLeft, maxScrollLeft));
 
@@ -113,29 +124,43 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
       left: clampedLeft,
       behavior: "smooth",
     });
-  }, [safeViewIndex, activeColorIndex, activeViewType]);
+  }, [safeViewIndex, activeColorIndex, activeViewType, loopedCount]);
 
-  const handleThumbnailDragStart = (clientX: number) => {
+  useEffect(() => {
+    const track = thumbnailTrackRef.current;
+    if (!track || loopedCount <= 1) return;
+
+    const firstButton = thumbnailButtonRefs.current[0];
+    const secondButton = thumbnailButtonRefs.current[1];
+    if (!firstButton || !secondButton) return;
+
+    const step = secondButton.offsetLeft - firstButton.offsetLeft;
+    if (step <= 0) return;
+
+    const segmentWidth = step * loopedCount;
+    thumbnailLoopRef.current = {
+      segmentWidth,
+      leftThreshold: segmentWidth * 0.5,
+      rightThreshold: segmentWidth * 1.5,
+    };
+
+    // Start in the middle loop segment.
+    track.scrollLeft = segmentWidth;
+  }, [loopedCount, activeColorIndex, activeViewType]);
+
+  const handleThumbnailLoopWrap = () => {
     const track = thumbnailTrackRef.current;
     if (!track) return;
 
-    dragStateRef.current = {
-      isDragging: true,
-      startX: clientX,
-      scrollLeft: track.scrollLeft,
-    };
-  };
+    const { segmentWidth, leftThreshold, rightThreshold } =
+      thumbnailLoopRef.current;
+    if (segmentWidth <= 0) return;
 
-  const handleThumbnailDragMove = (clientX: number) => {
-    const track = thumbnailTrackRef.current;
-    if (!track || !dragStateRef.current.isDragging) return;
-
-    const deltaX = clientX - dragStateRef.current.startX;
-    track.scrollLeft = dragStateRef.current.scrollLeft - deltaX;
-  };
-
-  const handleThumbnailDragEnd = () => {
-    dragStateRef.current.isDragging = false;
+    if (track.scrollLeft <= leftThreshold) {
+      track.scrollLeft += segmentWidth;
+    } else if (track.scrollLeft >= rightThreshold) {
+      track.scrollLeft -= segmentWidth;
+    }
   };
 
   return (
@@ -155,7 +180,7 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
         </motion.div>
       </div>
 
-      <div className="relative z-10 w-full max-w-[1400px] flex flex-col items-center">
+      <div className="relative z-10 w-full max-w-[1920px] flex flex-col items-center">
         {/* ================= Carousel ================= */}
         <div className="relative w-full h-[470px] flex justify-center items-center overflow-visible">
           {getVisibleColors().map((variant) => {
@@ -178,7 +203,7 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
                   ease: [0.22, 1, 0.36, 1],
                 }}
                 style={{ zIndex: variant.position === 0 ? 30 : 20 }}
-                className="absolute w-[770px] h-[470px] flex items-center justify-center"
+                className="absolute w-[800px] h-[470px] flex items-center justify-center"
               >
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.img
@@ -189,7 +214,7 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.28, ease: "easeOut" }}
-                    className="max-w-full max-h-full object-contain pointer-events-none absolute inset-0 m-auto"
+                    className="max-w-full object-contain pointer-events-none absolute inset-0 m-auto"
                   />
                 </AnimatePresence>
               </motion.div>
@@ -208,33 +233,23 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
 
               <div
                 ref={thumbnailTrackRef}
-                className="flex gap-[20px] px-[53px] w-full items-center overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing"
-                onMouseDown={(e) => handleThumbnailDragStart(e.clientX)}
-                onMouseMove={(e) => {
-                  if (!dragStateRef.current.isDragging) return;
-                  e.preventDefault();
-                  handleThumbnailDragMove(e.clientX);
-                }}
-                onMouseUp={handleThumbnailDragEnd}
-                onMouseLeave={handleThumbnailDragEnd}
-                onTouchStart={(e) =>
-                  handleThumbnailDragStart(e.touches[0].clientX)
-                }
-                onTouchMove={(e) =>
-                  handleThumbnailDragMove(e.touches[0].clientX)
-                }
-                onTouchEnd={handleThumbnailDragEnd}
+                className="flex gap-[20px] px-[112px] w-full items-center overflow-x-auto no-scrollbar"
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               >
-                {visibleViews.map((view, i) => (
+                {loopedViews.map((view, i) => (
                   <button
                     key={i}
                     ref={(el) => {
                       thumbnailButtonRefs.current[i] = el;
                     }}
-                    onClick={() => setActiveViewIndex(i)}
+                    onClick={() => {
+                      if (loopedCount === 0) return;
+                      setActiveViewIndex(i % loopedCount);
+                      handleThumbnailLoopWrap();
+                    }}
                     className={`flex-shrink-0 w-[93px] h-[48px] overflow-hidden transition-all pointer-events-auto flex items-center justify-center border ${
-                      safeViewIndex === i
-                        ? "border-[#121212]"
+                      safeViewIndex === i % Math.max(loopedCount, 1)
+                        ? "border-[#454C55]"
                         : "border-[#E4E4E4]"
                     }`}
                   >

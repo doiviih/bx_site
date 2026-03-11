@@ -70,45 +70,46 @@ export default function ThirteenthSection() {
                 About Our Flagship
               </button>
             </div>
-
-            <div className="mt-[138px] flex items-center gap-[32px] text-[#121212]">
-              <a
-                href="https://www.instagram.com/diesel/"
-                target="_blank"
-                rel="instagram link"
-              >
-                <img src={instagram} alt="instagram icon" />
-              </a>
-              <a
-                href="https://www.facebook.com/Diesel/"
-                target="_blank"
-                rel="facebook link"
-              >
-                <img src={facebook} alt="facebook icon" />
-              </a>
-              <a
-                href="https://www.youtube.com/@diesel"
-                target="_blank"
-                rel="youtube link"
-              >
-                <img src={youtube} alt="youtube icon" />
-              </a>
-              <a
-                href="https://www.tiktok.com/@diesel"
-                target="_blank"
-                rel="tiktok link"
-              >
-                <img src={tiktok} alt="tiktok icon"></img>
-              </a>
-              <a href="https://x.com/DIESEL" target="_blank" rel="X link">
-                <img src={X} alt="X icon" />
-              </a>
-            </div>
-
-            <p className="mt-[20px] text-[#121212] text-[14px] font-bold tracking-[-0.56px] font-['Switzer_Variable',_sans-serif]">
-              Copyright © 2025 Diesel SpA - All rights reserved
-            </p>
           </div>
+        </div>
+        <div className="absolute bottom-[112px] left-1/2 -translate-x-1/2">
+          <div className="flex items-center gap-[32px] text-[#121212]">
+            <a
+              href="https://www.instagram.com/diesel/"
+              target="_blank"
+              rel="instagram link"
+            >
+              <img src={instagram} alt="instagram icon" />
+            </a>
+            <a
+              href="https://www.facebook.com/Diesel/"
+              target="_blank"
+              rel="facebook link"
+            >
+              <img src={facebook} alt="facebook icon" />
+            </a>
+            <a
+              href="https://www.youtube.com/@diesel"
+              target="_blank"
+              rel="youtube link"
+            >
+              <img src={youtube} alt="youtube icon" />
+            </a>
+            <a
+              href="https://www.tiktok.com/@diesel"
+              target="_blank"
+              rel="tiktok link"
+            >
+              <img src={tiktok} alt="tiktok icon"></img>
+            </a>
+            <a href="https://x.com/DIESEL" target="_blank" rel="X link">
+              <img src={X} alt="X icon" />
+            </a>
+          </div>
+
+          <p className="mt-[20px] text-[#121212] text-[14px] font-bold tracking-[-0.56px] font-['Switzer_Variable',_sans-serif]">
+            Copyright © 2025 Diesel SpA - All rights reserved
+          </p>
         </div>
       </div>
     </section>
