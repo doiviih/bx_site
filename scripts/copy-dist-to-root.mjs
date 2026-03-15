@@ -1,4 +1,4 @@
-import { copyFile, cp, mkdir, readdir, rm } from "node:fs/promises";
+import { copyFile, cp, mkdir, readdir, rm, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 
@@ -32,4 +32,13 @@ for (const entry of entries) {
   if (entry.isFile()) {
     await copyFile(srcPath, destPath);
   }
+}
+
+const indexHtml = await readFile(rootIndex, "utf8");
+const cleanedIndex = indexHtml.replace(
+  /\\s*<script\\s+type=\"module\"\\s+src=\"\\/src\\/main\\.tsx\"\\s*><\\/script>\\s*/i,
+  \"\\n\",
+);
+if (cleanedIndex !== indexHtml) {
+  await writeFile(rootIndex, cleanedIndex);
 }
