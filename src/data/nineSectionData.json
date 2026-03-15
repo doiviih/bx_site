@@ -4,7 +4,7 @@
     {
       "id": "red",
       "name": "Melissa Quantum Platform",
-      "price": "₩ 240,000",
+      "price": "240,000",
       "color": "#E84C4C",
       "views": {
         "default": [
@@ -54,7 +54,7 @@
     {
       "id": "black",
       "name": "Melissa Quantum Sneakers X",
-      "price": "₩ 390,000",
+      "price": "390,000",
       "color": "#232222",
       "views": {
         "default": [
@@ -84,7 +84,7 @@
     {
       "id": "silver",
       "name": "Melissa Quantum Thong",
-      "price": "₩ 150,000",
+      "price": "150,000",
       "color": "#E4E4E4",
       "views": {
         "default": [

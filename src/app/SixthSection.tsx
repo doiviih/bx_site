@@ -23,7 +23,7 @@ const SixthSection = forwardRef<HTMLDivElement>((_, ref) => {
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Left Text */}
-        <p className="absolute top-[10%] left-[80px] w-fit text-[48px] font-alumni font-black text-[#202020] leading-[120%] tracking-[-0.03em] z-15">
+        <p className="absolute top-[130px] left-[80px] w-fit text-[48px] font-alumni font-black text-[#202020] leading-[120%] tracking-[-3%] z-15">
           The collection features three standout models, inspired by
           <br /> parametric design, optical art, and futuristic sculptural
           forms.
@@ -41,7 +41,7 @@ const SixthSection = forwardRef<HTMLDivElement>((_, ref) => {
         </div>
 
         {/* Right Text */}
-        <p className="absolute bottom-[12%] right-[80px] w-fit text-[48px] font-alumni font-black text-[#202020] leading-[120%] tracking-[-0.03em] text-right z-15">
+        <p className="absolute bottom-[140px] right-[80px] w-fit text-[48px] font-alumni font-black text-[#202020] leading-[120%] tracking-[-3%] text-right z-15">
           Melissa’s jelly material meets Diesel’s experimental
           <br />
           design, creating a playful and unique look.

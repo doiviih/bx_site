@@ -166,10 +166,10 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
   return (
     <motion.section
       style={{ y }}
-      className="sticky top-0 h-screen w-full bg-white z-50 flex flex-col items-center justify-center overflow-hidden font-['Switzer_Variable',_sans-serif]"
+      className="sticky top-0 h-screen w-full bg-white z-50 flex flex-col justify-start items-center pt-[184px] overflow-hidden font-['Switzer_Variable',_sans-serif]"
     >
       {/* Background Text (Infinite Loop) */}
-      <div className="absolute h-[360px] top-[146px] left-0 w-full overflow-hidden pointer-events-none opacity-50">
+      <div className="absolute h-[360px] top-[146px] left-0 w-full overflow-hidden pointer-events-none">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
@@ -223,10 +223,10 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
         </div>
 
         {/* ================= Controls ================= */}
-        <div className="mt-[64px] flex flex-col items-center gap-[73px] w-full">
+        <div className="mt-[18px] flex flex-col items-center gap-[73px] w-full">
           <div className="flex flex-col items-center gap-8">
             {/* View Thumbnails (Blurred Edge Carousel) */}
-            <div className="relative w-[318px] h-[52px] flex items-center overflow-hidden">
+            <div className="relative w-[318px] h-[48px] flex items-center overflow-hidden">
               {/* Blur Overlays */}
               <div className="absolute left-0 top-0 bottom-0 w-[53px] bg-gradient-to-r from-white via-white/50 to-transparent z-10 pointer-events-none" />
               <div className="absolute right-0 top-0 bottom-0 w-[53px] bg-gradient-to-l from-white via-white/50 to-transparent z-10 pointer-events-none" />
@@ -290,7 +290,7 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
           <div className="flex items-center gap-[48px]">
             <button
               onClick={prevColor}
-              className="w-20 h-20 rounded-full bg-white border border-black flex items-center justify-center hover:bg-[#E4E4E4] transition-colors pointer-events-auto"
+              className="w-20 h-20 rounded-full bg-white border border-black flex items-center justify-center hover:bg-[#E4E4E4] hover:border-0 transition-colors pointer-events-auto"
             >
               <img src={arrow} alt="carousel arrow" className="w-6 h-6" />
             </button>
@@ -299,14 +299,15 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
               <h2 className="text-[32px] font-extrabold text-[#121212] tracking-tighter uppercase leading-[1.4]">
                 {currentColor.name}
               </h2>
-              <p className="text-[20px] font-bold text-[#121212] tracking-tight">
+              <p className="text-[24px] font-bold text-[#121212] align-bottom tracking-tight">
+                <span className="text-[20px]">₩ </span>
                 {currentColor.price}
               </p>
             </div>
 
             <button
               onClick={nextColor}
-              className="w-20 h-20 rounded-full bg-white border border-black flex items-center justify-center hover:bg-[#E4E4E4] transition-colors pointer-events-auto"
+              className="w-20 h-20 rounded-full bg-white border border-black flex items-center justify-center hover:bg-[#E4E4E4] hover:border-0 transition-colors pointer-events-auto"
             >
               <img
                 src={arrow}

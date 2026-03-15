@@ -131,6 +131,23 @@ export default function EighthSection({
               "100vw",
               "0vw",
             ]);
+            // 개별 카드의 y축 이동 애니메이션
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const cardY =
+              card.id === 2
+                ? // 2번째 카드: 183 -> 237 -> 122
+                  // eslint-disable-next-line react-hooks/rules-of-hooks
+                  useTransform(
+                    scrollYProgress,
+                    [
+                      card.range[0],
+                      (card.range[0] + card.range[1]) / 2,
+                      card.range[1],
+                    ],
+                    [183 - card.top, 237 - card.top, 122 - card.top],
+                  )
+                : // eslint-disable-next-line react-hooks/rules-of-hooks
+                  useTransform(scrollYProgress, card.range, [-36, 0]);
 
             return (
               <motion.div
@@ -143,6 +160,7 @@ export default function EighthSection({
                   left: card.left,
                   rotate: card.rotate,
                   x: cardX,
+                  y: cardY,
                   borderRadius: 20,
                 }}
                 className="bg-white overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.4)] flex flex-col shrink-0"

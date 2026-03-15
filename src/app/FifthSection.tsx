@@ -108,7 +108,7 @@ export default function FifthSection() {
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
         {/* Seascape Background */}
         <motion.div
-          className="absolute inset-x-0 top-0 w-full z-0 origin-top"
+          className="absolute inset-x-0 top-0 w-full z-11 origin-top"
           style={{
             opacity: seaOpacity,
             y: seaY,

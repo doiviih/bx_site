@@ -157,7 +157,7 @@ export default function EleventhSection() {
     offset: ["start start", "end end"],
   });
 
-  const trackX = useTransform(scrollYProgress, [0, 1], [0, -1610]);
+  const trackX = useTransform(scrollYProgress, [0, 1], [0, -2268]);
   // const titleX = useTransform(scrollYProgress, [0, 1], [0, -260]);
 
   return (

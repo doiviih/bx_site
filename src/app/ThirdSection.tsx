@@ -48,7 +48,7 @@ export default function ThirdSection() {
         {/* Boldness Section */}
         <div className="max-w-[1920px] mx-auto px-[80px] pt-[100vh] pointer-events-auto ">
           <div className="flex gap-[62px] w-full justify-end pr-[297px]">
-            <div className="text-right pt-[92px]">
+            <div className="text-right pt-[124px]">
               <p className="font-switzer font-extrabold text-[#e2001a] text-[100px] tracking-[-0.04em] leading-[100%]">
                 Boldness
               </p>

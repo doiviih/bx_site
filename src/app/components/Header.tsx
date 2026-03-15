@@ -48,6 +48,10 @@ function MenuIcon({
   stroke?: "white" | "black";
   isOpen?: boolean;
 }) {
+  if (isOpen) {
+    return <div className="h-[6px] w-[36px]" />;
+  }
+
   return (
     <div className="h-[6px] w-[36px]">
       <motion.svg
@@ -185,22 +189,20 @@ function Header({ styleVariant = "landing" }: HeaderProps) {
           >
             <motion.div
               initial={{
-                clipPath: "inset(0 0 100% 0 0 0 36px 36px)",
-                y: -30,
+                clipPath: "inset(100% 0 0 0)",
+                y: 60,
               }}
               animate={{
-                clipPath: "inset(0 0 0% 0 0 0 36px 36px)",
+                clipPath: "inset(0 0 0 0)",
                 y: 0,
               }}
               exit={{
-                clipPath: "inset(0 0 100% 0 0 0 36px 36px)",
-                y: -20,
+                clipPath: "inset(100% 0 0 0)",
+                y: 40,
               }}
               transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0 bg-[rgba(10,10,10,0.92)] backdrop-blur-[18px]"
+              className="absolute inset-0 bg-[#121212]"
             >
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_30%,rgba(255,255,255,0.12),transparent_48%),radial-gradient(circle_at_78%_74%,rgba(255,255,255,0.10),transparent_52%)] pointer-events-none" />
-
               <div className="relative z-10 h-full w-full mx-auto px-[224px]">
                 <button
                   type="button"
@@ -226,7 +228,7 @@ function Header({ styleVariant = "landing" }: HeaderProps) {
                       transition: { delayChildren: 0.1, staggerChildren: 0.06 },
                     },
                   }}
-                  className="pt-[236px]"
+                  className="pt-[204px]"
                 >
                   {MENU_ITEMS.map((item, idx) => (
                     <motion.li

@@ -167,7 +167,7 @@ export default function TenthSection() {
   );
   const headingY = useTransform(scrollYProgress, [0.06, 0.32], [0, -270]);
   const headingOpacity = useTransform(scrollYProgress, [0.18, 0.36], [1, 0]);
-  const cardsY = useTransform(scrollYProgress, [0.12, 0.46], [480, 0]);
+  const cardsY = useTransform(scrollYProgress, [0.12, 0.46], [600, 0]);
 
   return (
     <section ref={sectionRef} className="relative h-[220vh] w-full z-[60]">
@@ -183,7 +183,7 @@ export default function TenthSection() {
 
         <motion.p
           style={{ y: headingY, opacity: headingOpacity }}
-          className="absolute left-1/2 -translate-x-1/2 top-[170px] w-[1320px] text-center text-white text-[64px] md:text-[88px] lg:text-[120px] leading-[1.04] tracking-[-0.04em] font-alumni font-extrabold pointer-events-none z-40"
+          className="absolute left-1/2 -translate-x-1/2 top-[270px] w-[1320px] text-center text-white text-[64px] md:text-[88px] lg:text-[120px] leading-[1.04] tracking-[-0.04em] font-alumni font-extrabold pointer-events-none z-40"
         >
           Discover what our users are
           <br />

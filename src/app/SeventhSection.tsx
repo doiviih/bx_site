@@ -58,8 +58,8 @@ export default function SeventhSection({
     [0, 1, 1, 0],
   );
   const stackRotate = useTransform(scrollYProgress, [0.21, 0.24], [0, -20]);
-  const stackScale = useTransform(scrollYProgress, [0.21, 0.45], [1, 78]);
-  const y = useTransform(scrollYProgress, [0.21, 0.45], [0, -7000]);
+  const stackScale = useTransform(scrollYProgress, [0.21, 0.5], [1, 76]);
+  const y = useTransform(scrollYProgress, [0.21, 0.5], [0, -6800]);
 
   return (
     <motion.section

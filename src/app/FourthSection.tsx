@@ -63,7 +63,7 @@ export default function FourthSection() {
             </p>
           </div>
 
-          <div className="flex justify-between gap-[150px] mt-[286px] ml-[320px]">
+          <div className="flex justify-between gap-[150px] mt-[134px] ml-[320px]">
             <span className="block h-[494px] w-[395px]">
               <img
                 alt="melissa image2"

@@ -107,7 +107,7 @@ export default function ThirteenthSection() {
             </a>
           </div>
 
-          <p className="mt-[20px] text-[#121212] text-[14px] font-bold tracking-[-0.56px] font-['Switzer_Variable',_sans-serif]">
+          <p className="mt-[32px] text-[#121212] text-[14px] font-bold tracking-[-4%] font-['Switzer_Variable',_sans-serif]">
             Copyright © 2025 Diesel SpA - All rights reserved
           </p>
         </div>
