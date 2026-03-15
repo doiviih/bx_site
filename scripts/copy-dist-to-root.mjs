@@ -36,8 +36,8 @@ for (const entry of entries) {
 
 const indexHtml = await readFile(rootIndex, "utf8");
 const cleanedIndex = indexHtml.replace(
-  /\\s*<script\\s+type=\"module\"\\s+src=\"\\/src\\/main\\.tsx\"\\s*><\\/script>\\s*/i,
-  \"\\n\",
+  /\s*<script\s+type="module"\s+src="\/src\/main\.tsx"\s*><\/script>\s*/i,
+  "\n",
 );
 if (cleanedIndex !== indexHtml) {
   await writeFile(rootIndex, cleanedIndex);
