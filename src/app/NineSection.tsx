@@ -36,6 +36,7 @@ const colorVariants = data.variants;
 /* =========================컴포넌트========================= */
 
 export default function NineSection({ scrollContainerRef }: NineSectionProps) {
+  const baseUrl = import.meta.env.BASE_URL;
   const [activeColorIndex, setActiveColorIndex] = useState(0);
   const [activeViewIndex, setActiveViewIndex] = useState(0);
   const [activeViewType, setActiveViewType] = useState<ViewType>("default");
@@ -208,7 +209,7 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.img
                     key={`${variant.id}-${imageSource}`}
-                    src={`/${imageSource}`}
+                    src={`${baseUrl}${imageSource}`}
                     alt={variant.name}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -254,7 +255,7 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
                     }`}
                   >
                     <img
-                      src={`/${view}`}
+                      src={`${baseUrl}${view}`}
                       alt={`view-${i}`}
                       className="max-w-full max-h-full object-contain"
                     />
