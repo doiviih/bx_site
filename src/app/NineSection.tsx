@@ -196,7 +196,7 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
                 key={`slot-${variant.position}`}
                 animate={{
                   x: variant.position * 822,
-                  opacity: variant.position === 0 ? 1 : 0.92,
+                  opacity: 1,
                   scale: variant.position === 0 ? 1 : 0.96,
                 }}
                 transition={{
