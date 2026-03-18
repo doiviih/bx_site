@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { MotionValue } from "motion";
 
@@ -11,6 +11,9 @@ import collection5 from "../assets/collection5.png";
 import collection6 from "../assets/collection6.png";
 import collection7 from "../assets/collection7.png";
 import collection8 from "../assets/collection8.png";
+
+const DESIGN_WIDTH = 1920;
+const DESIGN_HEIGHT = 1080;
 
 interface CardBase {
   id: string;
@@ -151,6 +154,7 @@ function ParallaxCard({
 
 export default function EleventhSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [layoutScale, setLayoutScale] = useState(1);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -158,7 +162,18 @@ export default function EleventhSection() {
   });
 
   const trackX = useTransform(scrollYProgress, [0, 1], [0, -2268]);
-  // const titleX = useTransform(scrollYProgress, [0, 1], [0, -260]);
+
+  useEffect(() => {
+    const updateScale = () => {
+      const widthRatio = window.innerWidth / DESIGN_WIDTH;
+      const heightRatio = window.innerHeight / DESIGN_HEIGHT;
+      setLayoutScale(Math.min(1, widthRatio, heightRatio));
+    };
+
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, []);
 
   return (
     <section ref={sectionRef} className="relative h-[560vh] w-full z-[65]">
@@ -172,14 +187,22 @@ export default function EleventhSection() {
           }}
         />
 
-        <p className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[#E2001A] text-[300px] font-alumni font-bold leading-[1.2] tracking-[-4%] whitespace-nowrap z-20 pointer-events-none">
-          COLLECTION
-        </p>
+        <div
+          className="absolute left-1/2 top-1/2 w-[1920px] h-[1080px]"
+          style={{
+            transform: `translate(-50%, -50%) scale(${layoutScale})`,
+            transformOrigin: "center center",
+          }}
+        >
+          <p className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[#E2001A] text-[300px] font-alumni font-bold leading-[1.2] tracking-[-4%] whitespace-nowrap z-20 pointer-events-none">
+            COLLECTION
+          </p>
 
-        <div className="absolute inset-0">
-          {cards.map((card) => (
-            <ParallaxCard key={card.id} card={card} trackX={trackX} />
-          ))}
+          <div className="absolute inset-0">
+            {cards.map((card) => (
+              <ParallaxCard key={card.id} card={card} trackX={trackX} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

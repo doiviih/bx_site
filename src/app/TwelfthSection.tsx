@@ -7,39 +7,55 @@ import social4 from "../assets/social4.png";
 import social5 from "../assets/social5.png";
 import social6 from "../assets/social6.png";
 
+const CARD_WIDTH = 425;
 const CARD_HEIGHT = 629;
 const CARD_GAP = 20;
-const PITCH = CARD_HEIGHT + CARD_GAP;
+const RIGHT_PANE_WIDTH = 870;
+const DESIGN_WIDTH = 1920;
+const DESIGN_HEIGHT = 1080;
 
 function RollingColumn({
   images,
   direction,
   duration,
   initialOffset,
+  scale,
 }: {
   images: string[];
   direction: "up" | "down";
   duration: number;
   initialOffset: number;
+  scale: number;
 }) {
-  const cycle = images.length * PITCH;
+  const cardWidth = CARD_WIDTH * scale;
+  const cardHeight = CARD_HEIGHT * scale;
+  const cardGap = CARD_GAP * scale;
+  const cycle = images.length * (cardHeight + cardGap);
 
   return (
-    <div className="relative w-[425px] h-full overflow-hidden">
+    <div
+      className="relative h-full overflow-hidden"
+      style={{ width: cardWidth }}
+    >
       <motion.div
-        style={{ marginTop: initialOffset }}
+        style={{ marginTop: initialOffset * scale, gap: cardGap }}
         animate={direction === "up" ? { y: [0, -cycle] } : { y: [-cycle, 0] }}
         transition={{
           duration,
           repeat: Infinity,
           ease: "linear",
         }}
-        className="flex flex-col gap-[20px]"
+        className="flex flex-col"
       >
         {[...images, ...images].map((src, idx) => (
           <div
             key={`${src}-${idx}`}
-            className="w-[425px] h-[629px] rounded-[20px] overflow-hidden"
+            className="shrink-0 overflow-hidden"
+            style={{
+              width: cardWidth,
+              height: cardHeight,
+              borderRadius: 20 * scale,
+            }}
           >
             <img
               src={src}
@@ -55,12 +71,23 @@ function RollingColumn({
 
 export default function TwelfthSection() {
   const [layoutScale, setLayoutScale] = useState(1);
+  const [cardScale, setCardScale] = useState(1);
+  const [rightPaneInset, setRightPaneInset] = useState(0);
 
   useEffect(() => {
     const updateScale = () => {
-      const widthRatio = window.innerWidth / 1920;
-      const heightRatio = window.innerHeight / 1080;
-      setLayoutScale(Math.min(1, widthRatio, heightRatio));
+      const widthRatio = window.innerWidth / DESIGN_WIDTH;
+      const heightRatio = window.innerHeight / DESIGN_HEIGHT;
+      // Keep 1920x1080 ratio and only scale down when viewport is smaller.
+      const nextScale = Math.min(1, widthRatio, heightRatio);
+      setLayoutScale(nextScale);
+      setRightPaneInset((window.innerWidth - DESIGN_WIDTH * nextScale) / 2);
+
+      const paneWidth = RIGHT_PANE_WIDTH * nextScale;
+      const paneHeight = window.innerHeight;
+      const fitByWidth = paneWidth / (CARD_WIDTH * 2 + CARD_GAP);
+      const fitByHeight = paneHeight / (CARD_HEIGHT * 2 + CARD_GAP);
+      setCardScale(Math.min(fitByWidth, fitByHeight));
     };
 
     updateScale();
@@ -74,47 +101,119 @@ export default function TwelfthSection() {
 
       <div className="absolute inset-0 z-10">
         <div
-          className="absolute left-1/2 top-1/2 w-full max-w-[1920px] h-screen"
+          className="absolute left-1/2 top-1/2 w-[1920px] h-screen"
           style={{
             transform: `translate(-50%, -50%) scale(${layoutScale})`,
             transformOrigin: "center center",
           }}
         >
-          <div className="relative h-full w-full grid grid-cols-2">
-            <div className="h-full pl-[80px] pt-[122px]">
-              <p className="font-['Switzer_Variable',_sans-serif] text-[100px] leading-[1.2] tracking-[-4px] text-white font-extrabold whitespace-pre-line">
-                {`SHARE\nOUR\nCOLLECTION\nON SOCIAL`}
-              </p>
+          <motion.div
+            className="absolute left-0 top-0 h-full w-fit pl-[80px] pt-[122px]"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.14 } },
+            }}
+          >
+            <div className="font-['Switzer_Variable',_sans-serif] text-[100px] leading-[1.2] tracking-[-4px] text-white font-extrabold whitespace-pre-line">
+              {`SHARE\nOUR\nCOLLECTION\nON SOCIAL`
+                .split("\n")
+                .map((line, idx) => (
+                  <span key={idx} className="block overflow-hidden">
+                    <motion.span
+                      className="block"
+                      variants={{
+                        hidden: { y: "120%" },
+                        show: {
+                          y: "0%",
+                          transition: {
+                            duration: 0.9,
+                            ease: [0.22, 1, 0.36, 1],
+                          },
+                        },
+                      }}
+                    >
+                      {line}
+                    </motion.span>
+                  </span>
+                ))}
+            </div>
 
-              <button className="mt-[24px] h-[60px] px-[44px] rounded-[32px] border border-white text-white font-['Switzer_Variable',_sans-serif] text-[20px] font-extrabold tracking-[-4%] transition-colors duration-300 hover:text-[#E2001A] hover:border-[#E2001A]">
+            <div className="mt-[24px] overflow-hidden">
+              <motion.button
+                className="h-[60px] px-[44px] rounded-[32px] border border-white text-white font-['Switzer_Variable',_sans-serif] text-[20px] font-extrabold tracking-[-4%] transition-colors duration-300 hover:bg-[#E2001A] hover:border-[#E2001A]"
+                variants={{
+                  hidden: { y: "120%" },
+                  show: {
+                    y: "0%",
+                    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+                  },
+                }}
+              >
                 Share the Boldness
-              </button>
-
-              <div className="mt-[106px] font-alumni text-[40px] font-bold text-[#E4E4E4] leading-[1.35]">
-                <p>#DIESEL X MELISSA</p>
-                <p>#JELLY SHOES</p>
-                <p>#INNOVATIVE COLLABORATION</p>
-              </div>
+              </motion.button>
             </div>
 
-            <div className="relative h-full">
-              <div className="absolute inset-0 flex items-start justify-center gap-[20px] pt-0">
-                <RollingColumn
-                  images={[social1, social2, social3]}
-                  direction="down"
-                  duration={22}
-                  initialOffset={-37}
-                />
-                <RollingColumn
-                  images={[social4, social5, social6]}
-                  direction="up"
-                  duration={30}
-                  initialOffset={-424}
-                />
-              </div>
+            <div className="mt-[106px] font-alumni text-[40px] font-bold text-[#E4E4E4] leading-[1.35]">
+              {[
+                "#DIESEL X MELISSA",
+                "#JELLY SHOES",
+                "#INNOVATIVE COLLABORATION",
+              ].map((line, idx) => (
+                <span key={idx} className="block overflow-hidden">
+                  <motion.span
+                    className="block"
+                    variants={{
+                      hidden: { y: "120%" },
+                      show: {
+                        y: "0%",
+                        transition: {
+                          duration: 0.8,
+                          ease: [0.22, 1, 0.36, 1],
+                        },
+                      },
+                    }}
+                  >
+                    {line}
+                  </motion.span>
+                </span>
+              ))}
             </div>
-          </div>
+          </motion.div>
         </div>
+
+        <motion.div
+          className="absolute top-0 pr-[80px] h-screen overflow-hidden"
+          style={{
+            right: rightPaneInset,
+          }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.9 }}
+          transition={{ duration: 2.0, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div
+            className="flex h-full w-fit items-start"
+            style={{ gap: CARD_GAP * cardScale }}
+          >
+            <RollingColumn
+              images={[social1, social2, social3]}
+              direction="down"
+              duration={22}
+              initialOffset={-37}
+              scale={cardScale}
+            />
+            <RollingColumn
+              images={[social4, social5, social6]}
+              direction="up"
+              duration={30}
+              initialOffset={-424}
+              scale={cardScale}
+            />
+          </div>
+        </motion.div>
       </div>
     </section>
   );

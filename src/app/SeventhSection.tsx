@@ -21,7 +21,9 @@ function ParallaxText({
   // Keep wrap-based loop, but cap the driving value so motion stops growing
   // after the equivalent of +/-1000px travel.
   const x = useTransform(scrollYProgress, (v) => {
-    const clamped = Math.max(-577, Math.min(577, v * direction * 2200));
+    // Move sideways early, then hold position while scale continues.
+    const phase = Math.min(v, 0.7) / 0.7;
+    const clamped = Math.max(-577, Math.min(577, phase * direction * 2200));
     return `${wrap(-20, -45, clamped * 0.02)}%`;
   });
 
@@ -52,14 +54,14 @@ export default function SeventhSection({
     offset: ["start start", "end end"],
   });
 
-  const opacity = useTransform(
-    scrollYProgress,
-    [0.12, 0.18, 0.86, 0.96],
-    [0, 1, 1, 0],
-  );
-  const stackRotate = useTransform(scrollYProgress, [0.21, 0.24], [0, -20]);
-  const stackScale = useTransform(scrollYProgress, [0.21, 0.5], [1, 76]);
-  const y = useTransform(scrollYProgress, [0.21, 0.5], [0, -6800]);
+  // Start after SixthSection circle completes (circle ends at ~0.4)
+  const start = 0.42;
+  const progress = useTransform(scrollYProgress, [start, 1], [0, 1]);
+
+  const opacity = useTransform(progress, [0, 0.06, 0.92, 1], [0, 1, 1, 0]);
+  const stackRotate = useTransform(progress, [0.08, 0.12], [0, -20]);
+  const stackScale = useTransform(progress, [0.08, 0.85], [1, 76]);
+  const y = useTransform(progress, [0.08, 0.85], [0, -6800]);
 
   return (
     <motion.section
@@ -74,16 +76,16 @@ export default function SeventhSection({
         }
         className="absolute inset-0 flex flex-col justify-center gap-0 origin-center"
       >
-        <ParallaxText direction={-1} scrollYProgress={scrollYProgress}>
+        <ParallaxText direction={-1} scrollYProgress={progress}>
           Contradiction becomes Creation
         </ParallaxText>
-        <ParallaxText direction={1} scrollYProgress={scrollYProgress}>
+        <ParallaxText direction={1} scrollYProgress={progress}>
           Contradiction becomes Creation
         </ParallaxText>
-        <ParallaxText direction={-1} scrollYProgress={scrollYProgress}>
+        <ParallaxText direction={-1} scrollYProgress={progress}>
           Contradiction becomes Creation
         </ParallaxText>
-        <ParallaxText direction={1} scrollYProgress={scrollYProgress}>
+        <ParallaxText direction={1} scrollYProgress={progress}>
           Contradiction becomes Creation
         </ParallaxText>
       </motion.div>

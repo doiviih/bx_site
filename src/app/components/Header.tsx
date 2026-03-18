@@ -6,10 +6,15 @@ import closeIcon from "../../assets/close_icon.png";
 
 type HeaderStyle = "landing" | "blur-dark" | "blur-light";
 
-function DieselLogo() {
+function DieselLogo({ onClick }: { onClick: () => void }) {
   return (
     <div className="absolute h-[72px] left-[calc(50%+1px)] top-[9px] translate-x-[-50%] w-[127px]">
-      <a href="https://kr.diesel.com/en/" target="_blank" rel="logo">
+      <button
+        type="button"
+        aria-label="Scroll to top"
+        onClick={onClick}
+        className="block size-full"
+      >
         <svg
           className="block size-full"
           fill="none"
@@ -36,7 +41,7 @@ function DieselLogo() {
             </clipPath>
           </defs>
         </svg>
-      </a>
+      </button>
     </div>
   );
 }
@@ -137,6 +142,11 @@ function Header({ styleVariant = "landing" }: HeaderProps) {
     setIsMenuOpen(false);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setIsMenuOpen(false);
+  };
+
   return (
     <>
       <section
@@ -147,7 +157,7 @@ function Header({ styleVariant = "landing" }: HeaderProps) {
           containerClass,
         )}
       >
-        <DieselLogo />
+        <DieselLogo onClick={scrollToTop} />
         <div className="flex justify-end items-center gap-8 h-full">
           <a
             href="https://kr.diesel.com/en/whats-new/"

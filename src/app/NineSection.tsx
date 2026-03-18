@@ -32,11 +32,13 @@ interface NineSectionProps {
 
 const data = nineSectionData as { variants: Variant[] };
 const colorVariants = data.variants;
+const BG_TEXT_OVERSCAN = 220;
 
 /* =========================컴포넌트========================= */
 
 export default function NineSection({ scrollContainerRef }: NineSectionProps) {
   const baseUrl = import.meta.env.BASE_URL;
+  const [stageScale, setStageScale] = useState(1);
   const [activeColorIndex, setActiveColorIndex] = useState(0);
   const [activeViewIndex, setActiveViewIndex] = useState(0);
   const [activeViewType, setActiveViewType] = useState<ViewType>("default");
@@ -53,9 +55,24 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
     offset: ["start start", "end end"],
   });
 
-  const y = useTransform(scrollYProgress, [0.8, 0.85], ["100vh", "0vh"]);
+  const y = useTransform(scrollYProgress, [0.88, 0.93], ["100vh", "0vh"]);
+  const pointerEvents = useTransform(scrollYProgress, (v) =>
+    v >= 0.93 ? "auto" : "none",
+  );
 
   const currentColor = colorVariants[activeColorIndex];
+
+  useEffect(() => {
+    const updateScale = () => {
+      const widthRatio = window.innerWidth / 1920;
+      const heightRatio = window.innerHeight / 1080;
+      setStageScale(Math.min(1, widthRatio, heightRatio));
+    };
+
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, []);
 
   /* =========================컬러 이동========================= */
 
@@ -166,156 +183,180 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
 
   return (
     <motion.section
-      style={{ y }}
-      className="sticky top-0 h-screen w-full bg-white z-50 flex flex-col justify-start items-center pt-[184px] overflow-hidden font-['Switzer_Variable',_sans-serif]"
+      style={{ y, pointerEvents }}
+      className="sticky top-0 h-screen w-full bg-white z-50 flex items-center justify-center overflow-hidden font-['Switzer_Variable',_sans-serif]"
     >
-      {/* Background Text (Infinite Loop) */}
-      <div className="absolute h-[360px] top-[146px] left-0 w-full overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="flex whitespace-nowrap"
+      <div
+        className="relative w-[1920px] h-[1080px]"
+        style={{
+          transform: `scale(${stageScale})`,
+          transformOrigin: "center center",
+        }}
+      >
+        {/* Background Text (Infinite Loop) */}
+        <div
+          className="absolute overflow-hidden pointer-events-none"
+          style={{
+            left: `-${BG_TEXT_OVERSCAN}px`,
+            width: `calc(100% + ${BG_TEXT_OVERSCAN * 2}px)`,
+            top: "146px",
+            height: "360px",
+          }}
         >
-          <img src={txtbg} alt="txtbg" className="h-[360px] max-w-none" />
-          <img src={txtbg} alt="txtbg" className="h-[360px] max-w-none" />
-        </motion.div>
-      </div>
-
-      <div className="relative z-10 w-full max-w-[1920px] flex flex-col items-center">
-        {/* ================= Carousel ================= */}
-        <div className="relative w-full h-[470px] flex justify-center items-center overflow-visible">
-          {getVisibleColors().map((variant) => {
-            const imageSource =
-              variant.position === 0
-                ? (variant.views[activeViewType]?.[safeViewIndex] ??
-                  variant.views.default[safeViewIndex])
-                : variant.views.default[0];
-
-            return (
-              <motion.div
-                key={`slot-${variant.position}`}
-                animate={{
-                  x: variant.position * 822,
-                  opacity: 1,
-                  scale: variant.position === 0 ? 1 : 0.96,
-                }}
-                transition={{
-                  duration: 0.48,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                style={{ zIndex: variant.position === 0 ? 30 : 20 }}
-                className="absolute w-[800px] h-[470px] flex items-center justify-center"
-              >
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.img
-                    key={`${variant.id}-${imageSource}`}
-                    src={`${baseUrl}${imageSource}`}
-                    alt={variant.name}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.28, ease: "easeOut" }}
-                    className="max-w-full object-contain pointer-events-none absolute inset-0 m-auto"
-                  />
-                </AnimatePresence>
-              </motion.div>
-            );
-          })}
+          <motion.div
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            className="flex h-full whitespace-nowrap"
+          >
+            <img
+              src={txtbg}
+              alt="txtbg"
+              className="h-full w-auto max-w-none shrink-0"
+            />
+            <img
+              src={txtbg}
+              alt="txtbg"
+              className="h-full w-auto max-w-none shrink-0"
+            />
+          </motion.div>
         </div>
 
-        {/* ================= Controls ================= */}
-        <div className="mt-[18px] flex flex-col items-center gap-[73px] w-full">
-          <div className="flex flex-col items-center gap-8">
-            {/* View Thumbnails (Blurred Edge Carousel) */}
-            <div className="relative w-[318px] h-[48px] flex items-center overflow-hidden">
-              {/* Blur Overlays */}
-              <div className="absolute left-0 top-0 bottom-0 w-[53px] bg-gradient-to-r from-white via-white/50 to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-[53px] bg-gradient-to-l from-white via-white/50 to-transparent z-10 pointer-events-none" />
+        <div className="relative z-10 w-full h-full flex flex-col items-center pt-[184px]">
+          {/* ================= Carousel ================= */}
+          <div className="relative w-full h-[470px] flex justify-center items-center overflow-visible">
+            {getVisibleColors().map((variant) => {
+              const imageSource =
+                variant.position === 0
+                  ? (variant.views[activeViewType]?.[safeViewIndex] ??
+                    variant.views.default[safeViewIndex])
+                  : variant.views.default[0];
 
-              <div
-                ref={thumbnailTrackRef}
-                className="flex gap-[20px] px-[112px] w-full items-center overflow-x-auto no-scrollbar"
-                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-              >
-                {loopedViews.map((view, i) => (
-                  <button
-                    key={i}
-                    ref={(el) => {
-                      thumbnailButtonRefs.current[i] = el;
-                    }}
-                    onClick={() => {
-                      if (loopedCount === 0) return;
-                      setActiveViewIndex(i % loopedCount);
-                      handleThumbnailLoopWrap();
-                    }}
-                    className={`flex-shrink-0 w-[93px] h-[48px] overflow-hidden transition-all pointer-events-auto flex items-center justify-center border ${
-                      safeViewIndex === i % Math.max(loopedCount, 1)
-                        ? "border-[#454C55]"
-                        : "border-[#E4E4E4]"
-                    }`}
-                  >
-                    <img
-                      src={`${baseUrl}${view}`}
-                      alt={`view-${i}`}
-                      className="max-w-full max-h-full object-contain"
+              return (
+                <motion.div
+                  key={`slot-${variant.position}`}
+                  animate={{
+                    x: variant.position * 822,
+                    opacity: 1,
+                    scale: variant.position === 0 ? 1 : 0.96,
+                  }}
+                  transition={{
+                    duration: 0.48,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  style={{ zIndex: variant.position === 0 ? 30 : 20 }}
+                  className="absolute w-[800px] h-[470px] flex items-center justify-center"
+                >
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.img
+                      key={`${variant.id}-${imageSource}`}
+                      src={`${baseUrl}${imageSource}`}
+                      alt={variant.name}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.28, ease: "easeOut" }}
+                      className="max-w-full object-contain pointer-events-none absolute inset-0 m-auto"
                     />
-                  </button>
-                ))}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* ================= Controls ================= */}
+          <div className="mt-[18px] flex flex-col items-center gap-[73px] w-full">
+            <div className="flex flex-col items-center gap-8">
+              {/* View Thumbnails (Blurred Edge Carousel) */}
+              <div className="relative w-[318px] h-[48px] flex items-center overflow-hidden">
+                {/* Blur Overlays */}
+                <div className="absolute left-0 top-0 bottom-0 w-[53px] bg-gradient-to-r from-white via-white/50 to-transparent z-10 pointer-events-none" />
+                <div className="absolute right-0 top-0 bottom-0 w-[53px] bg-gradient-to-l from-white via-white/50 to-transparent z-10 pointer-events-none" />
+
+                <div
+                  ref={thumbnailTrackRef}
+                  className="flex gap-[20px] px-[112px] w-full items-center overflow-x-auto no-scrollbar"
+                  style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                >
+                  {loopedViews.map((view, i) => (
+                    <button
+                      key={i}
+                      ref={(el) => {
+                        thumbnailButtonRefs.current[i] = el;
+                      }}
+                      onClick={() => {
+                        if (loopedCount === 0) return;
+                        setActiveViewIndex(i % loopedCount);
+                        handleThumbnailLoopWrap();
+                      }}
+                      className={`flex-shrink-0 w-[93px] h-[48px] overflow-hidden transition-all pointer-events-auto flex items-center justify-center border ${
+                        safeViewIndex === i % Math.max(loopedCount, 1)
+                          ? "border-[#454C55]"
+                          : "border-[#E4E4E4]"
+                      }`}
+                    >
+                      <img
+                        src={`${baseUrl}${view}`}
+                        alt={`view-${i}`}
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* View Type Switch */}
+              <div className="flex gap-5">
+                {(Object.keys(currentColor.views) as ViewType[]).map(
+                  (viewType) => (
+                    <button
+                      key={viewType}
+                      onClick={() => {
+                        setActiveViewType(viewType);
+                        setActiveViewIndex(0);
+                      }}
+                      className={`w-4 h-4 rounded-full transition-all pointer-events-auto`}
+                      style={{
+                        backgroundColor:
+                          currentColor.viewColors?.[viewType] ??
+                          currentColor.color,
+                      }}
+                      title={viewType}
+                    />
+                  ),
+                )}
               </div>
             </div>
 
-            {/* View Type Switch */}
-            <div className="flex gap-5">
-              {(Object.keys(currentColor.views) as ViewType[]).map(
-                (viewType) => (
-                  <button
-                    key={viewType}
-                    onClick={() => {
-                      setActiveViewType(viewType);
-                      setActiveViewIndex(0);
-                    }}
-                    className={`w-4 h-4 rounded-full transition-all pointer-events-auto`}
-                    style={{
-                      backgroundColor:
-                        currentColor.viewColors?.[viewType] ??
-                        currentColor.color,
-                    }}
-                    title={viewType}
-                  />
-                ),
-              )}
+            {/* Navigation */}
+            <div className="flex items-center gap-[48px]">
+              <button
+                onClick={prevColor}
+                className="w-20 h-20 rounded-full bg-white border border-black flex items-center justify-center hover:bg-[#E4E4E4] hover:border-0 transition-colors pointer-events-auto"
+              >
+                <img src={arrow} alt="carousel arrow" className="w-6 h-6" />
+              </button>
+
+              <div className="text-center flex flex-col gap-2 min-w-[500px]">
+                <h2 className="text-[32px] font-extrabold text-[#121212] tracking-tighter uppercase leading-[1.4]">
+                  {currentColor.name}
+                </h2>
+                <p className="text-[24px] font-bold text-[#121212] align-bottom tracking-tight">
+                  <span className="text-[20px]">₩ </span>
+                  {currentColor.price}
+                </p>
+              </div>
+
+              <button
+                onClick={nextColor}
+                className="w-20 h-20 rounded-full bg-white border border-black flex items-center justify-center hover:bg-[#E4E4E4] hover:border-0 transition-colors pointer-events-auto"
+              >
+                <img
+                  src={arrow}
+                  alt="carousel arrow"
+                  className="w-6 h-6 rotate-180"
+                />
+              </button>
             </div>
-          </div>
-
-          {/* Navigation */}
-          <div className="flex items-center gap-[48px]">
-            <button
-              onClick={prevColor}
-              className="w-20 h-20 rounded-full bg-white border border-black flex items-center justify-center hover:bg-[#E4E4E4] hover:border-0 transition-colors pointer-events-auto"
-            >
-              <img src={arrow} alt="carousel arrow" className="w-6 h-6" />
-            </button>
-
-            <div className="text-center flex flex-col gap-2 min-w-[500px]">
-              <h2 className="text-[32px] font-extrabold text-[#121212] tracking-tighter uppercase leading-[1.4]">
-                {currentColor.name}
-              </h2>
-              <p className="text-[24px] font-bold text-[#121212] align-bottom tracking-tight">
-                <span className="text-[20px]">₩ </span>
-                {currentColor.price}
-              </p>
-            </div>
-
-            <button
-              onClick={nextColor}
-              className="w-20 h-20 rounded-full bg-white border border-black flex items-center justify-center hover:bg-[#E4E4E4] hover:border-0 transition-colors pointer-events-auto"
-            >
-              <img
-                src={arrow}
-                alt="carousel arrow"
-                className="w-6 h-6 rotate-180"
-              />
-            </button>
           </div>
         </div>
       </div>

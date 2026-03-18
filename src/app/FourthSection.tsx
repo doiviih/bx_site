@@ -1,12 +1,15 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import melissaLogo from "../assets/melissa_logo.png";
 import img1 from "../assets/melissa_img.png";
 import img2 from "../assets/melissa_img2.png";
 import img3 from "../assets/melissa_img3.png";
+import melissaVd from "../assets/melissa_only_bg.mp4";
+import melissaTxt from "../assets/melissa_only_text.png";
 
 export default function FourthSection() {
   const containerRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   // const { scrollYProgress } = useScroll({
   //   target: containerRef,
   //   offset: ["start end", "end start"],
@@ -15,11 +18,38 @@ export default function FourthSection() {
   // Parallax effect: Background moves slower than content
   // const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5;
+    }
+  }, []);
+
   return (
     <section ref={containerRef} className="relative w-full">
       {/* Sticky Background Container */}
       <div className="sticky top-0 h-screen w-full overflow-hidden z-10">
-        <motion.div className="absolute top-[-10%] left-0 w-full h-[120%] bg-[url('../assets/melissa_bg.png')] bg-cover bg-center" />
+        <motion.div className="absolute top-[-10%] left-0 w-full h-[120%]">
+          <img
+            src={melissaTxt}
+            alt="melissa text image"
+            className="absolute top-1/2 -translate-y-1/2 z-10"
+          />
+          <video
+            ref={videoRef}
+            className="h-full w-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            onLoadedMetadata={() => {
+              if (videoRef.current) {
+                videoRef.current.playbackRate = 0.5;
+              }
+            }}
+          >
+            <source src={melissaVd} type="video/mp4" />
+          </video>
+        </motion.div>
 
         {/* Sticky Content (Logo + Intro Text) */}
         <div className="absolute top-0 left-0 w-full h-full z-10">

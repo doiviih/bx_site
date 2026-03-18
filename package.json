@@ -4,10 +4,14 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "prebuild": "node scripts/restore-dev-index.mjs",
     "build": "vite build",
+    "prebuild:root": "node scripts/restore-dev-index.mjs",
     "build:root": "vite build && node scripts/copy-dist-to-root.mjs",
-    "dev": "vite",
-    "start": "vite"
+    "predev": "node scripts/restore-dev-index.mjs",
+    "dev": "node scripts/restore-dev-index.mjs && vite",
+    "prestart": "node scripts/restore-dev-index.mjs",
+    "start": "node scripts/restore-dev-index.mjs && vite"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",

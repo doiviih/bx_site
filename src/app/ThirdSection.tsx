@@ -11,8 +11,9 @@ export default function ThirdSection() {
     offset: ["start start", "end end"],
   });
 
-  // Brightness effect: Logo darkens as user scrolls down
-  const brightness = useTransform(scrollYProgress, [0, 0.3], [1, 0.3]); // 100% to 20% brightness
+  // Scale in first, then start dimming
+  const bgScale = useTransform(scrollYProgress, [0, 0.2], [0.7, 1]);
+  const brightness = useTransform(scrollYProgress, [0.2, 0.5], [1, 0.3]); // 100% to 30% brightness
 
   return (
     <section ref={containerRef} className="relative w-full">
@@ -21,6 +22,8 @@ export default function ThirdSection() {
         <motion.div
           style={{
             filter: useTransform(brightness, (value) => `brightness(${value})`),
+            scale: bgScale,
+            transformOrigin: "center",
           }}
           className="absolute top-[-10%] left-0 w-full h-[120%] bg-[url('../assets/diesel_bg.png')] bg-cover bg-center"
         />

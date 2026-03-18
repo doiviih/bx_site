@@ -34,13 +34,13 @@ export default function EighthSection({
   }, []);
 
   // Section 배경이 나타나는 구간
-  const sectionOpacity = useTransform(scrollYProgress, [0.47, 0.52], [0, 1]);
+  const sectionOpacity = useTransform(scrollYProgress, [0.52, 0.57], [0, 1]);
 
   // 배경 심볼 이미지의 opacity (최대 0.5)
-  const symbolOpacity = useTransform(scrollYProgress, [0.55, 0.65], [0, 0.8]);
+  const symbolOpacity = useTransform(scrollYProgress, [0.6, 0.7], [0, 0.8]);
 
   // 텍스트의 opacity (최대 1.0)
-  const textOpacity = useTransform(scrollYProgress, [0.55, 0.65], [0, 1]);
+  const textOpacity = useTransform(scrollYProgress, [0.6, 0.7], [0, 1]);
 
   const cardData = [
     {
@@ -50,7 +50,7 @@ export default function EighthSection({
       rotate: -10.623,
       top: 175,
       left: 138,
-      range: [0.65, 0.75],
+      range: [0.7, 0.8],
       image: keywordImg,
     },
     {
@@ -60,7 +60,7 @@ export default function EighthSection({
       rotate: 5.327,
       top: 122,
       left: 656,
-      range: [0.66, 0.78],
+      range: [0.71, 0.83],
       image: keywordImg2,
     },
     {
@@ -70,7 +70,7 @@ export default function EighthSection({
       rotate: -2.523,
       top: 209,
       left: 1212,
-      range: [0.7, 0.8],
+      range: [0.75, 0.85],
       image: keywordImg3,
     },
   ];
@@ -99,24 +99,34 @@ export default function EighthSection({
         className="absolute bottom-[114px] pointer-events-none select-none overflow-hidden"
       >
         {[...Array(2)].map((_, i) => (
-          <div
+          <motion.div
             key={i}
             className={`flex whitespace-nowrap leading-[0.75] ${i === 1 ? "ml-[-240px] mt-[-26px]" : ""}`}
+            animate={{ x: i === 0 ? ["0%", "-33.333%"] : ["0%", "33.333%"] }}
+            transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
           >
-            {[...Array(10)].map((_, j) => (
-              <span
-                key={j}
-                className="font-alumni font-black text-white text-[200px] md:text-[240px] uppercase tracking-tight mr-[40px]"
+            {[...Array(3)].map((__, loopIndex) => (
+              <div
+                key={loopIndex}
+                className="flex whitespace-nowrap"
+                aria-hidden={loopIndex > 0}
               >
-                NEO FORM
-              </span>
+                {[...Array(12)].map((_, j) => (
+                  <span
+                    key={`${loopIndex}-${j}`}
+                    className="font-alumni font-black text-white text-[200px] md:text-[240px] uppercase tracking-tight mr-[40px]"
+                  >
+                    NEO FORM
+                  </span>
+                ))}
+              </div>
             ))}
-          </div>
+          </motion.div>
         ))}
       </motion.div>
 
       {/* Horizontal Cards Area */}
-      <div className="absolute inset-0 z-20 flex items-center justify-center">
+      <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-auto">
         <div
           className="relative w-[1920px] h-[1080px] shrink-0"
           style={{
@@ -127,10 +137,11 @@ export default function EighthSection({
           {cardData.map((card) => {
             // 개별 카드의 x축 이동 애니메이션
             // eslint-disable-next-line react-hooks/rules-of-hooks
-            const cardX = useTransform(scrollYProgress, card.range, [
-              "100vw",
-              "0vw",
-            ]);
+            const cardX = useTransform(
+              scrollYProgress,
+              card.range,
+              card.id === 1 ? ["140vw", "0vw"] : ["100vw", "0vw"],
+            );
             // 개별 카드의 y축 이동 애니메이션
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const cardY =
@@ -163,11 +174,15 @@ export default function EighthSection({
                   y: cardY,
                   borderRadius: 20,
                 }}
-                className="bg-white overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.4)] flex flex-col shrink-0"
+                className="group pointer-events-auto bg-white overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.4)] flex flex-col shrink-0"
               >
                 {/* Card Image Area */}
-                <div className="w-full h-full flex-1 bg-gray-100 relative">
-                  <img src={card.image} alt="keyword card image" />
+                <div className="w-full h-full flex-1 bg-gray-100 relative overflow-hidden">
+                  <img
+                    src={card.image}
+                    alt="keyword card image"
+                    className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+                  />
                 </div>
 
                 {/* Card Bottom Content with Gradient Text Overlay */}

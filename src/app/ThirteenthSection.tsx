@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import sculpture_vd from "../assets/sample5.mp4";
 import instagram from "../assets/instagram.svg";
 import facebook from "../assets/facebook.svg";
@@ -47,13 +48,38 @@ export default function ThirteenthSection() {
           }}
         >
           <div className="relative h-full w-full flex flex-col items-center pt-[327px]">
-            <p className="text-[#E2001A] text-[48px] leading-[1.2] tracking-[-1.92px] font-extrabold font-['Switzer_Variable',_sans-serif]">
+            <motion.p
+              className="text-[#E2001A] text-[48px] leading-[1.2] tracking-[-1.92px] font-extrabold font-['Switzer_Variable',_sans-serif]"
+              initial={{ opacity: 0, y: -12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.45 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
               Bold Steps Into the Future
-            </p>
+            </motion.p>
 
-            <h2 className="text-[#E2001A] text-[220px] leading-[100%] tracking-[-8.8px] font-extrabold font-['Switzer_Variable',_sans-serif] whitespace-nowrap">
-              DIESEL × MELISSA
-            </h2>
+            <motion.h2
+              className="text-[#E2001A] text-[220px] leading-[100%] tracking-[-8.8px] font-extrabold font-['Switzer_Variable',_sans-serif] whitespace-nowrap"
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={{
+                hidden: {},
+                show: { transition: { staggerChildren: 0.05 } },
+              }}
+            >
+              {"DIESEL × MELISSA".split("").map((char, idx) => (
+                <motion.span
+                  key={`${char}-${idx}`}
+                  variants={{
+                    hidden: { opacity: 0 },
+                    show: { opacity: 1 },
+                  }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+            </motion.h2>
 
             <div className="mt-[84px] flex items-center gap-[20px]">
               <button className="h-[60px] w-[224px] rounded-[32px] border border-[#121212] bg-[rgba(228,228,228,0.2)] backdrop-blur-[6px] text-[#121212] text-[16px] font-bold tracking-[-0.64px] font-['Switzer_Variable',_sans-serif] hover:text-[#E2001A] hover:border-[#E2001A]">

@@ -36,7 +36,7 @@ export default function App() {
       const probeY = 140;
 
       // SixthSection staged area:
-      // early phase -> light, Seven/Eight phase -> dark, Nine phase -> light.
+      // before Seventh appears -> dark, Seven/Eight phase -> dark, Nine phase -> light.
       if (sixthStageRef.current) {
         const sixthRect = sixthStageRef.current.getBoundingClientRect();
         const inSixthStage =
@@ -50,12 +50,12 @@ export default function App() {
               (probeY - sixthRect.top) / Math.max(sixthRect.height, 1),
             ),
           );
-          if (progress < 0.12) {
+          if (progress < 0.3) {
             setHeaderStyle("blur-light");
-          } else if (progress < 0.82) {
+          } else if (progress < 0.9) {
             setHeaderStyle("blur-dark");
           } else {
-            setHeaderStyle("blur-light");
+            setHeaderStyle("blur-dark");
           }
           return;
         }
@@ -133,11 +133,18 @@ export default function App() {
         <SixthSection ref={sixthRef} />
         <div className="absolute inset-0 pointer-events-none">
           <SeventhSection scrollContainerRef={sixthRef} />
-          <EighthSection sectionId="eighth-root" scrollContainerRef={sixthRef} />
+        </div>
+        <div className="absolute inset-0 pointer-events-auto">
+          <EighthSection
+            sectionId="eighth-root"
+            scrollContainerRef={sixthRef}
+          />
+        </div>
+        <div className="absolute inset-0 pointer-events-none">
           <NineSection scrollContainerRef={sixthRef} />
         </div>
       </div>
-      <div id="tenth-root" data-header-style="blur-light">
+      <div id="tenth-root" data-header-style="blur-dark">
         <TenthSection />
       </div>
       <div id="eleventh-root" data-header-style="blur-light">
