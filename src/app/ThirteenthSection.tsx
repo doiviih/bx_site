@@ -1,20 +1,36 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import sculpture_vd from "../assets/sample5.mp4";
+import sculpture_vd from "../assets/sample6.mp4";
 import instagram from "../assets/instagram.svg";
 import facebook from "../assets/facebook.svg";
 import youtube from "../assets/youtube.svg";
 import tiktok from "../assets/tictok.svg";
 import X from "../assets/X.svg";
 
+const CROP_START_WIDTH = 1900;
+const CROP_FULL_WIDTH = 1899;
+const MAX_VIDEO_HEIGHT_PERCENT = 126;
+const MAX_VIDEO_SHIFT_PERCENT = 13;
+
 export default function ThirteenthSection() {
   const [layoutScale, setLayoutScale] = useState(1);
+  const [videoCropProgress, setVideoCropProgress] = useState(0);
 
   useEffect(() => {
     const updateScale = () => {
       const widthRatio = window.innerWidth / 1920;
       const heightRatio = window.innerHeight / 1080;
       setLayoutScale(Math.min(1, widthRatio, heightRatio));
+
+      const progress = Math.max(
+        0,
+        Math.min(
+          1,
+          (CROP_START_WIDTH - window.innerWidth) /
+            (CROP_START_WIDTH - CROP_FULL_WIDTH),
+        ),
+      );
+      setVideoCropProgress(progress);
     };
 
     updateScale();
@@ -22,12 +38,20 @@ export default function ThirteenthSection() {
     return () => window.removeEventListener("resize", updateScale);
   }, []);
 
+  const videoHeightPercent =
+    100 + (MAX_VIDEO_HEIGHT_PERCENT - 100) * videoCropProgress;
+  const videoShiftPercent = MAX_VIDEO_SHIFT_PERCENT * videoCropProgress;
+
   return (
     <section className="relative h-screen w-full overflow-hidden bg-[#121212] z-[75]">
       {/* Background Video Layer */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <video
-          className="h-full w-full object-cover"
+          className="w-full object-cover"
+          style={{
+            height: `${videoHeightPercent}%`,
+            transform: `translateY(-${videoShiftPercent}%)`,
+          }}
           autoPlay
           loop
           muted
