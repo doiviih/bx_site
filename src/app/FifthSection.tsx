@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import svgPaths from "../imports/svg-005lw4tp78";
-import ProductIntroBg from "../assets/productIntro_bg.mp4";
+import ProductIntroBg from "../assets/productIntro_bg2.mp4";
 import redPd from "../assets/red_pd.png";
 import blackPd from "../assets/black_pd.png";
 import clearPd from "../assets/clear_pd.png";
@@ -30,24 +30,57 @@ export default function FifthSection() {
   // Text split after products finish revealing
   const textSplitStart = 0.44;
   const textSplitEnd = 0.8;
-  const xC = useTransform(scrollYProgress, [textSplitStart, textSplitEnd], [0, -1000]);
-  const xR = useTransform(scrollYProgress, [textSplitStart, textSplitEnd], [0, -1000]);
-  const xE = useTransform(scrollYProgress, [textSplitStart, textSplitEnd], [0, -1000]);
-  const xA = useTransform(scrollYProgress, [textSplitStart, textSplitEnd], [0, -1000]);
-  const xT = useTransform(scrollYProgress, [textSplitStart, textSplitEnd], [0, 1000]);
-  const xI = useTransform(scrollYProgress, [textSplitStart, textSplitEnd], [0, 1000]);
-  const xO = useTransform(scrollYProgress, [textSplitStart, textSplitEnd], [0, 1000]);
-  const xN = useTransform(scrollYProgress, [textSplitStart, textSplitEnd], [0, 1000]);
+  const xC = useTransform(
+    scrollYProgress,
+    [textSplitStart, textSplitEnd],
+    [0, -1000],
+  );
+  const xR = useTransform(
+    scrollYProgress,
+    [textSplitStart, textSplitEnd],
+    [0, -1000],
+  );
+  const xE = useTransform(
+    scrollYProgress,
+    [textSplitStart, textSplitEnd],
+    [0, -1000],
+  );
+  const xA = useTransform(
+    scrollYProgress,
+    [textSplitStart, textSplitEnd],
+    [0, -1000],
+  );
+  const xT = useTransform(
+    scrollYProgress,
+    [textSplitStart, textSplitEnd],
+    [0, 1000],
+  );
+  const xI = useTransform(
+    scrollYProgress,
+    [textSplitStart, textSplitEnd],
+    [0, 1000],
+  );
+  const xO = useTransform(
+    scrollYProgress,
+    [textSplitStart, textSplitEnd],
+    [0, 1000],
+  );
+  const xN = useTransform(
+    scrollYProgress,
+    [textSplitStart, textSplitEnd],
+    [0, 1000],
+  );
 
   // --- Product Animation ---
   // Reveal first on the same line, then move/rotate after reveal completes.
   const animationEnd = 0.8;
 
   // Scale (Common)
-  const productScale = useTransform(scrollYProgress, [0.4, 1], [0.8, 1.2]);
+  const productScale = useTransform(scrollYProgress, [0.4, 1], [0.8, 1.4]);
 
   // Move/rotate only after the final reveal completes
   const moveStart = textSplitStart;
+  const verticalStackDrop = 44;
 
   // Initial aligned positions (same baseline like the design)
   const redInitialX = -485;
@@ -63,7 +96,7 @@ export default function FifthSection() {
   const redY = useTransform(
     scrollYProgress,
     [moveStart, animationEnd],
-    [0, -520],
+    [0, -470 + verticalStackDrop],
   );
   const redRotate = useTransform(
     scrollYProgress,
@@ -80,7 +113,7 @@ export default function FifthSection() {
   const blackY = useTransform(
     scrollYProgress,
     [moveStart, animationEnd],
-    [0, 0],
+    [0, 0 + verticalStackDrop],
   );
   const blackRotate = useTransform(
     scrollYProgress,
@@ -97,7 +130,7 @@ export default function FifthSection() {
   const clearY = useTransform(
     scrollYProgress,
     [moveStart, animationEnd],
-    [0, 520],
+    [0, 470 + verticalStackDrop],
   );
   const clearRotate = useTransform(
     scrollYProgress,
