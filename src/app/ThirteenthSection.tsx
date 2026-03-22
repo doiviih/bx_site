@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import sculpture_vd from "../assets/sample6.mp4";
+import sculpture_vd from "../assets/footer_bg.mp4";
 import instagram from "../assets/instagram.svg";
 import facebook from "../assets/facebook.svg";
 import youtube from "../assets/youtube.svg";
@@ -105,7 +105,17 @@ export default function ThirteenthSection() {
               ))}
             </motion.h2>
 
-            <div className="mt-[84px] flex items-center gap-[20px]">
+            <motion.div
+              className="mt-[84px] flex items-center gap-[20px]"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.6,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
               <button className="h-[60px] w-[224px] rounded-[32px] border border-[#121212] bg-[rgba(228,228,228,0.2)] backdrop-blur-[6px] text-[#121212] text-[16px] font-bold tracking-[-0.64px] font-['Switzer_Variable',_sans-serif] hover:text-[#E2001A] hover:border-[#E2001A]">
                 <a
                   href="https://kr.diesel.com/en/unisex/melissa/"
@@ -119,10 +129,16 @@ export default function ThirteenthSection() {
               <button className="h-[60px] w-[224px] rounded-[32px] border border-[#121212] bg-[rgba(228,228,228,0.2)] backdrop-blur-[6px] text-[#121212] text-[16px] font-bold tracking-[-0.64px] font-['Switzer_Variable',_sans-serif] leading-[60px] hover:text-[#E2001A] hover:border-[#E2001A]">
                 About Our Flagship
               </button>
-            </div>
+            </motion.div>
           </div>
         </div>
-        <div className="absolute bottom-[112px] left-1/2 -translate-x-1/2">
+        <motion.div
+          className="absolute bottom-[112px] left-1/2 -translate-x-1/2"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.7, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        >
           <div className="flex items-center gap-[32px] text-[#121212]">
             <a
               href="https://www.instagram.com/diesel/"
@@ -160,7 +176,7 @@ export default function ThirteenthSection() {
           <p className="mt-[32px] text-[#121212] text-[14px] font-bold tracking-[-4%] font-['Switzer_Variable',_sans-serif]">
             Copyright © 2025 Diesel SpA - All rights reserved
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

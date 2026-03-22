@@ -189,10 +189,10 @@ export default function TwelfthSection() {
           style={{
             right: rightPaneInset,
           }}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.9 }}
-          transition={{ duration: 2.0, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
         >
           <div
             className="flex h-full w-fit items-start"

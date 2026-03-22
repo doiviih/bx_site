@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import svgPaths from "../imports/svg-005lw4tp78";
-import ProductIntroBg from "../assets/productIntro_bg2.mp4";
+import ProductIntroBg from "../assets/productIntro_bg.mp4";
 import redPd from "../assets/red_pd.png";
 import blackPd from "../assets/black_pd.png";
 import clearPd from "../assets/clear_pd.png";
