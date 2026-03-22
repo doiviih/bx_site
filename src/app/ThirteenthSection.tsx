@@ -126,7 +126,7 @@ export default function ThirteenthSection() {
                   Explore the Collection
                 </a>
               </button>
-              <button className="h-[60px] w-[224px] rounded-[32px] border border-[#121212] bg-[rgba(228,228,228,0.2)] backdrop-blur-[6px] text-[#121212] text-[16px] font-bold tracking-[-0.64px] font-['Switzer_Variable',_sans-serif] leading-[60px] hover:text-[#E2001A] hover:border-[#E2001A]">
+              <button className="h-[60px] w-[224px] rounded-[32px] border border-[#121212] bg-[rgba(228,228,228,0.2)] backdrop-blur-[6px] text-[#121212] text-[16px] font-bold tracking-[-0.64px] font-['Switzer_Variable',_sans-serif] leading-[60px] hover:text-[#E2001A] hover:border-[#E2001A] cursor-pointer">
                 About Our Flagship
               </button>
             </motion.div>

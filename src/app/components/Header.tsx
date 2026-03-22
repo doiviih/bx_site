@@ -13,7 +13,7 @@ function DieselLogo({ onClick }: { onClick: () => void }) {
         type="button"
         aria-label="Scroll to top"
         onClick={onClick}
-        className="block size-full"
+        className="block size-full cursor-pointer"
       >
         <svg
           className="block size-full"

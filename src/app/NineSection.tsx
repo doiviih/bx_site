@@ -331,7 +331,7 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
             <div className="flex items-center gap-[48px]">
               <button
                 onClick={prevColor}
-                className="w-20 h-20 rounded-full bg-white border border-black flex items-center justify-center hover:bg-[#E4E4E4] hover:border-0 transition-colors pointer-events-auto"
+                className="w-20 h-20 rounded-full bg-white border border-black flex items-center justify-center hover:bg-[#E4E4E4] hover:border-0 transition-colors pointer-events-auto cursor-pointer"
               >
                 <img src={arrow} alt="carousel arrow" className="w-6 h-6" />
               </button>
@@ -348,7 +348,7 @@ export default function NineSection({ scrollContainerRef }: NineSectionProps) {
 
               <button
                 onClick={nextColor}
-                className="w-20 h-20 rounded-full bg-white border border-black flex items-center justify-center hover:bg-[#E4E4E4] hover:border-0 transition-colors pointer-events-auto"
+                className="w-20 h-20 rounded-full bg-white border border-black flex items-center justify-center hover:bg-[#E4E4E4] hover:border-0 transition-colors pointer-events-auto cursor-pointer"
               >
                 <img
                   src={arrow}

@@ -143,7 +143,7 @@ export default function TwelfthSection() {
 
             <div className="mt-[24px] overflow-hidden">
               <motion.button
-                className="h-[60px] px-[44px] rounded-[32px] border border-white text-white font-['Switzer_Variable',_sans-serif] text-[20px] font-extrabold tracking-[-4%] transition-colors duration-300 hover:bg-[#E2001A] hover:border-[#E2001A]"
+                className="h-[60px] px-[44px] rounded-[32px] border border-white text-white font-['Switzer_Variable',_sans-serif] text-[20px] font-extrabold tracking-[-4%] transition-colors duration-300 hover:bg-[#E2001A] hover:border-[#E2001A] cursor-pointer"
                 variants={{
                   hidden: { y: "120%" },
                   show: {
