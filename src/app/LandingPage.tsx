@@ -1,7 +1,23 @@
 import svgPaths from "@/imports/svg-bj8hp90wui";
 import mainImage from "../assets/main_image.png";
+import collectionImg from "../assets/collection1.png";
+import collectionImg2 from "../assets/collection2.png";
+import collectionImg3 from "../assets/collection3.png";
+import collectionImg4 from "../assets/collection4.png";
+import collectionImg5 from "../assets/collection5.png";
+import collectionImg6 from "../assets/collection6.png";
 import dieselVideo from "../assets/diesel.mp4";
 import mellisaVideo from "../assets/melissa.mp4";
+
+const CENTER_POSTER_SPREAD_IMAGES = [
+  collectionImg,
+  collectionImg2,
+  collectionImg3,
+  collectionImg4,
+  collectionImg5,
+  collectionImg6,
+];
+const CENTER_POSTER_SPREAD_Z_INDEX = [3, 2, 1, 5, 6, 7];
 
 export default function LandingPage() {
   return (
@@ -123,12 +139,28 @@ export default function LandingPage() {
           </div>
 
           {/* Center Poster Image */}
-          <div className="absolute h-[414px] left-1/2 -translate-x-1/2 top-1/2 translate-y-[-50%] w-[276px]">
-            <img
-              alt="Diesel x Melissa collaboration poster"
-              className="absolute inset-0 max-w-none object-cover pointer-events-none size-full delay-700 animate-fade-in opacity-0"
-              src={mainImage}
-            />
+          <div className="center-poster center-poster--intro group absolute h-[414px] left-1/2 -translate-x-1/2 top-1/2 translate-y-[-50%] w-[276px] z-30">
+            <div className="center-poster__spread" aria-hidden="true">
+              {CENTER_POSTER_SPREAD_IMAGES.map((imageSrc, imageIndex) => (
+                <img
+                  key={`center-spread-${imageIndex}`}
+                  alt="spread image"
+                  aria-hidden="true"
+                  className={`center-poster__spread-item center-poster__spread-item--${
+                    imageIndex + 1
+                  }`}
+                  src={imageSrc}
+                  style={{ zIndex: CENTER_POSTER_SPREAD_Z_INDEX[imageIndex] }}
+                />
+              ))}
+            </div>
+            <div className="center-poster__base">
+              <img
+                alt="Diesel x Melissa collaboration poster"
+                className="center-poster__image absolute inset-0 max-w-none object-cover size-full"
+                src={mainImage}
+              />
+            </div>
           </div>
 
           {/* Circular Text with Arrow - Top Right */}

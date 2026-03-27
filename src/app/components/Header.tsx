@@ -164,7 +164,7 @@ function Header({ styleVariant = "landing" }: HeaderProps) {
             target="_blank"
             rel="what's new link"
             className={cn(
-              "font-paperlogy font-black leading-[1.4] not-italic text-[14px] tracking-[-0.42px]",
+              "font-paperlogy font-black leading-[1.4] not-italic text-[14px] tracking-[-2%]",
               textClass,
             )}
           >
@@ -254,10 +254,10 @@ function Header({ styleVariant = "landing" }: HeaderProps) {
                         onClick={() => goToSection(item.targetId)}
                         className="group relative flex w-full items-end justify-between pt-[32px] cursor-none"
                       >
-                        <span className="font-alumni font-extrabold text-[48px] tracking-[-4%] text-[#E4E4E4] transition-colors duration-300 group-hover:text-[#E2001A] leading-[120%]">
+                        <span className="font-alumni font-extrabold text-[48px] tracking-[-2%] text-[#E4E4E4] transition-colors duration-300 group-hover:text-[#E2001A] leading-[120%]">
                           {String(idx + 1).padStart(2, "0")}.
                         </span>
-                        <span className="font-alumni font-black text-[128px] leading-[100%] tracking-[-4%] text-[#E4E4E4] transition-colors duration-300 group-hover:text-[#E2001A]">
+                        <span className="font-alumni font-black text-[128px] leading-[100%] tracking-[-2%] text-[#E4E4E4] transition-colors duration-300 group-hover:text-[#E2001A]">
                           {item.label}
                         </span>
 
