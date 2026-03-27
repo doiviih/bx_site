@@ -153,7 +153,7 @@ function Header({ styleVariant = "landing" }: HeaderProps) {
         id="header"
         data-header-style={styleVariant}
         className={cn(
-          "fixed w-full h-[90px] left-0 top-0 z-100 px-20 delay-100 animate-fade-in-up opacity-0 transition-colors duration-300",
+          "fixed w-full h-[90px] left-0 top-0 z-100 px-20 delay-100 animate-fade-in opacity-0 transition-colors duration-300",
           containerClass,
         )}
       >
