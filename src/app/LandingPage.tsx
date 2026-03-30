@@ -169,7 +169,7 @@ export default function LandingPage() {
               href="https://kr.diesel.com/en/unisex/melissa/"
               target="_blank"
               rel="promotion link"
-              className="block w-full h-full cursor-pointer"
+              className="promo-link block w-full h-full cursor-pointer"
             >
               {/* rotating text */}
               <div className="animate-spin-slow w-full h-full">
@@ -226,14 +226,18 @@ export default function LandingPage() {
 
               {/* center arrow */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <svg
-                  width="30"
-                  height="28"
-                  viewBox="0 0 30.9336 28.4745"
-                  className="rotate-[315deg]"
-                >
-                  <path d={svgPaths.p1ff09300} fill="white" />
-                </svg>
+                <div className="promo-arrow" aria-hidden="true">
+                  <div className="promo-arrow__rotate">
+                    <svg
+                      width="30"
+                      height="28"
+                      viewBox="0 0 30.9336 28.4745"
+                      className="promo-arrow__icon"
+                    >
+                      <path d={svgPaths.p1ff09300} fill="white" />
+                    </svg>
+                  </div>
+                </div>
               </div>
             </a>
           </div>
